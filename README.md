@@ -1,7 +1,9 @@
 daily-cli
 =========
 
-multicommand cli to make the developer life easier 
+multicommand cli to make the developer life easier
+
+Are you a bored developer in charge of support? We're here for you. 
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 <!-- [![Version](https://img.shields.io/npm/v/daily-cli.svg)](https://npmjs.org/package/daily-cli)
