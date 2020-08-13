@@ -25,7 +25,7 @@ After run `npm link` you can run daily-cli at any location of your pc
 
 ## Configure for first time
 
-Create a file in your system ussing the following sintax
+Create a file in your system using the following sintax
 ```json
 {
     "interface": {
