@@ -49,7 +49,7 @@ $ daily-cli configure --path c:/configs.json
 
 ### To open all urls
 
-sintax `daily-cli run <interface> --task urls`
+sintax `daily-cli run <interface> --task urls` you can use `-t` to run `--task`
 
 ```bash
 $ daily-cli run elk --task urls
