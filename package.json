@@ -1,0 +1,51 @@
+{
+  "name": "daily-cli",
+  "description": "multicommand cli to make the developer life easier ",
+  "version": "0.0.0",
+  "author": "Flavio A @FlavioAandres",
+  "bin": {
+    "daily-cli": "./bin/run"
+  },
+  "bugs": "https://github.com/@FlavioAandres/daily-cli/issues",
+  "dependencies": {
+    "@oclif/command": "^1.8.0",
+    "@oclif/config": "^1.17.0",
+    "@oclif/plugin-help": "^3.2.0",
+    "json5": "^2.1.3",
+    "opn": "^6.0.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.22.2",
+    "globby": "^10.0.2",
+    "rimraf": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/src"
+  ],
+  "homepage": "https://github.com/@FlavioAandres/FlavioAandres",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "daily-cli",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "https://github.com/FlavioAandres/daily-cli",
+  "scripts": {
+    "postpack": "rimraf oclif.manifest.json",
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}
