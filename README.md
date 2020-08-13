@@ -21,9 +21,9 @@ $ git clone https://github.com/FlavioAandres/daily-cli.git
 $ npm i 
 $ npm link
 ```
-After run `npm link` you can run daily-cli in any location of your pc 
+After run `npm link` you can run daily-cli at any location of your pc 
 
-## Configure at the first time
+## Configure for first time
 
 Create a file in your system ussing the following sintax
 ```json
@@ -33,6 +33,9 @@ Create a file in your system ussing the following sintax
     },
     "elk": {
         "urls": ["https://elk.flavioaandres.com/search/"]
+    },
+    "metrics": {
+        "urls": ["https://metrics.flavioaandres.com/search/"]
     }
 }
 
@@ -46,8 +49,9 @@ $ daily-cli configure --path c:/configs.json
 
 ### To open all urls
 
+sintax `daily-cli run <interface> --task urls`
+
 ```bash
-    sintax daily-cli run <interface> --task urls
 $ daily-cli run elk --task urls
 ```
 
