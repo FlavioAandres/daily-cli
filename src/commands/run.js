@@ -34,7 +34,7 @@ class RunCommand extends Command {
   }
 
   procesUrlType = (urls = [])=>{
-    return Promise.all(urls.map(u=>opn(u)))
+    return Promise.all(urls.map(url=>opn(url)))
   }
 
 }
