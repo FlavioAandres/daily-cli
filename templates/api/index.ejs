@@ -1,0 +1,17 @@
+require("dotenv").config()
+const app = require("./src/app")
+<% Object.keys(modules).sort().forEach(function (variable) { -%>
+const <%- variable %> = require('<%- modules[variable] %>')
+<% }); -%>
+
+const { PORT = 3001, SERVER_TIMEOUT = 15000 } = process.env
+
+const server = app.listen(PORT, async () => {
+  <% if (modules.mongodb) { -%>
+  await mongodb.connect()
+  console.log("✔✔ mongodb connected")
+  <% } -%>
+  console.log("✔✔ express server started at port: " + PORT)
+});
+
+server.setTimeout(SERVER_TIMEOUT)
