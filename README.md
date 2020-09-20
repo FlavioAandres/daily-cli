@@ -13,8 +13,8 @@ Are you a bored developer in charge of support? We're here for you.
 <!-- toc -->
 # Functionalities
 
-* [Open a url group in your browser](#daily-cli-run)
-* [Generate express API + knex + metrics + mongodb](#To-open-all-urls)
+* [Open a url group in your browser](#To-open-all-urls)
+* [Generate express API + knex + metrics + mongodb](#daily-cli-api-generator)
 
 ## More... 
 * [Usage](#usage)
