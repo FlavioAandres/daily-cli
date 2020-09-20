@@ -1,5 +1,6 @@
 require("dotenv").config()
 const app = require("./src/app")
+
 <% Object.keys(modules).sort().forEach(function (variable) { -%>
 const <%- variable %> = require('<%- modules[variable] %>')
 <% }); -%>
@@ -14,4 +15,4 @@ const server = app.listen(PORT, async () => {
   console.log("✔✔ express server started at port: " + PORT)
 });
 
-server.setTimeout(SERVER_TIMEOUT)
+server.setTimeout(+SERVER_TIMEOUT)

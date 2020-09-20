@@ -2,7 +2,7 @@ const ejs = require("ejs");
 const path = require("path");
 const fs = require('fs')
 const util = require('util');
-
+const execa = require('execa')
 const RELATIVE_MONGOOSE_PATH = '/src/database/mongoose'
 const RELATIVE_KNEX_PATH = '/src/database/knex'
 const RELATIVE_ROUTER_PATH = 'src/router'
@@ -47,7 +47,7 @@ function buildEnvironmentVars(envs){
 module.exports = async function ({
   dir = 'c:/template-test',
   apiName =  'daily-api-template', 
-  options =  {mongo: true, docker: true}
+  options =  {mongo: false, docker: false}
 }) {
     const app = loadTemplate(RELATIVE_EXPRESS_PATH);
     const router = loadTemplate(RELATIVE_ROUTER_PATH);
@@ -116,4 +116,11 @@ module.exports = async function ({
     write(path.join(dir, RELATIVE_EXPRESS_PATH + '.js'), app.render())
     write(path.join(dir, RELATIVE_SERVER_PATH + '.js'), server.render())
     write(path.join(dir, RELATIVE_ROUTER_PATH + '.js'), router.render())
+
+    //npm install
+    process.chdir(dir)
+    console.log('Installing Npm packages')
+    const {stdout} = await execa('npm', ['install'])
+    console.log(stdout)
+    // execa('npm', ['install']).stdout.pipe(process.stdout);
 }
