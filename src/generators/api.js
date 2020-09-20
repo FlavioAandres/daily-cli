@@ -128,7 +128,7 @@ module.exports = async function ({
 
     //Write routes
     if(!options.metrics)
-      app.locals.uses.push(`app.use('/', router)`)
+      app.locals.uses.push(`'/', router`)
 
     //write rendered files
     write(path.join(dir,'.env'), buildEnvironmentVars(environment))
