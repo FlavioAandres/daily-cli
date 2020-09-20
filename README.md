@@ -21,7 +21,7 @@ $ npm install -g daily-cli
 $ daily-cli COMMAND
 running command...
 $ daily-cli (-v|--version|version)
-daily-cli/0.0.2 win32-x64 node-v12.16.2
+daily-cli/0.0.3 win32-x64 node-v12.16.2
 $ daily-cli --help [COMMAND]
 USAGE
   $ daily-cli COMMAND
@@ -99,7 +99,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src\commands\api-generator.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.2/src\commands\api-generator.js)_
+_See code: [src\commands\api-generator.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.3/src\commands\api-generator.js)_
 
 ## `daily-cli configure`
 
@@ -117,7 +117,7 @@ DESCRIPTION
   Extra documentation goes here https://github.com/FlavioAandres/daily-cli
 ```
 
-_See code: [src\commands\configure.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.2/src\commands\configure.js)_
+_See code: [src\commands\configure.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.3/src\commands\configure.js)_
 
 ## `daily-cli hello`
 
@@ -135,7 +135,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src\commands\hello.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.2/src\commands\hello.js)_
+_See code: [src\commands\hello.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.3/src\commands\hello.js)_
 
 ## `daily-cli help [COMMAND]`
 
@@ -170,5 +170,5 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src\commands\run.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.2/src\commands\run.js)_
+_See code: [src\commands\run.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.3/src\commands\run.js)_
 <!-- commandsstop -->
