@@ -1,31 +1,14 @@
 const {Command, flags} = require('@oclif/command')
 const fs = require('fs')
-const cli = require( 'cli-ux')
-const JSON5 = require('json5')
-const { create } = require('domain')
-const { EIDRM } = require('constants')
-// {
-//   elk: {
-//     urls:[''] 
-//   },
-//   metrics: {
-//     urls:['']
-//   },
-//   aws:{
-//     urls: [],
-//     sqs: [],
-//   }
-// }
-
+const path = require('path')
 class ConfigureCommand extends Command {
-  DEFAULT_CONFIG_FILE_PATH = __dirname + '/../../configs/default.json'
+  DEFAULT_CONFIG_FILE_PATH = './../configs/default.json'
   async run() {
     const {flags, args} = this.parse(ConfigureCommand)
     const {
       path
     } = flags
-    const existsDefaultConfig = fs.existsSync(this.DEFAULT_CONFIG_FILE_PATH)
-    console.log(existsDefaultConfig)
+    const existsDefaultConfig = fs.existsSync(__dirname + this.DEFAULT_CONFIG_FILE_PATH)
     
     const defaultConfig = existsDefaultConfig 
       ? require(this.DEFAULT_CONFIG_FILE_PATH) 
@@ -57,10 +40,10 @@ class ConfigureCommand extends Command {
 
 
   createFile = (name, data) => {
-    const path = __dirname + `/../../configs/${name}.json` 
-    if(fs.existsSync(path)) this.log('⚠ warning: ' + name + ' configs already exist, it will be overwritten')
+    const obsolutePath = path.join(__dirname, `/../configs/${name}.json`)
+    if(fs.existsSync(obsolutePath)) this.log('⚠ warning: ' + name + ' configs already exist, it will be overwritten')
     fs.writeFileSync(
-      path,
+      obsolutePath,
       data
     );
   }

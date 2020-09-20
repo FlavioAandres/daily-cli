@@ -5,4 +5,3 @@
 /tmp
 /yarn.lock
 node_modules
-/configs/*.json

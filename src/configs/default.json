@@ -1,7 +1,0 @@
-{
-  "interfaces": [
-    "elk",
-    "metrics",
-    "start-day"
-  ]
-}
