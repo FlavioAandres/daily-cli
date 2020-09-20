@@ -11,6 +11,12 @@ Are you a bored developer in charge of support? We're here for you.
 [![License](https://img.shields.io/npm/l/daily-cli.svg)](https://github.com/@FlavioAandres/FlavioAandres/blob/master/package.json) -->
 
 <!-- toc -->
+# Functionalities
+
+* [Open a url group in your browser](#daily-cli-run)
+* [Generate express API + knex + metrics + mongodb](#To-open-all-urls)
+
+## More... 
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -27,20 +33,8 @@ USAGE
   $ daily-cli COMMAND
 ...
 ```
-<!-- usagestop -->
-We do not have npm package published yet, but we're working on it. 
 
-## Install 
-
-```bash
-
-$ git clone https://github.com/FlavioAandres/daily-cli.git
-$ npm i 
-$ npm link
-```
-After run `npm link` you can run daily-cli at any location of your pc 
-
-## Configure for first time
+## Getting started 
 
 Create a file in your system using the following sintax
 ```json
@@ -49,7 +43,7 @@ Create a file in your system using the following sintax
         "urls": ["https://google.com","https://yahoo.com"]
     },
     "elk": {
-        "urls": ["https://elk.flavioaandres.com/search/"]
+        "urls": ["https://elk.flavioaandres.com/search/", "https://elk.flavioaandres.com/search/2"]
     },
     "metrics": {
         "urls": ["https://metrics.flavioaandres.com/search/"]
@@ -64,7 +58,7 @@ Create a file in your system using the following sintax
 $ daily-cli configure --path c:/configs.json
 ```
 
-### To open all urls
+### `To open all urls`
 
 sintax `daily-cli run <interface> --task urls` you can use `-t` to run `--task`
 
