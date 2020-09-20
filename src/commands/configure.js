@@ -16,7 +16,6 @@ class ConfigureCommand extends Command {
 
     const existsFile = fs.existsSync(path)
     if(!existsFile)  throw new Error('file doesnt exists')
-    
     const file = require(path)
     this.log('✔ file found')
     defaultConfig.interfaces = []

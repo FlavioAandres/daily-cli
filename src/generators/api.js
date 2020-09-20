@@ -40,7 +40,7 @@ function createFolding(path){
 
 function buildEnvironmentVars(envs){
   return Object.keys(envs).reduce((prev, key)=>{
-    return `${prev}\n${key}=${envs[key] || `""` }`
+    return `${prev}${key}=${envs[key] || `""` }\n`
   },'')
 } 
 
@@ -67,7 +67,8 @@ module.exports = async function ({
       dependencies: {
         'debug': '~2.6.9',
         'dotenv': '~8.2.0',
-        'express': '~4.16.1'
+        'express': '~4.16.1',
+        'body-parser': '~1.19.0'
       }
     }
 
@@ -112,6 +113,22 @@ module.exports = async function ({
       const docker = loadTemplate('Dockerfile')
       write(path.join(dir,'Dockerfile'), docker.render())
     }
+
+    if(options.metrics){
+      package.dependencies['@condor-labs/metrics'] = '1.3.5'
+      app.locals.modules.metrics = "@condor-labs/metrics"
+      app.locals.modules.metricsMiddleware = "@condor-labs/metrics/src/middleware/express"
+      app.locals.uses.push('metricsMiddleware.requestMiddleware(metrics)')
+      app.locals.uses.push(`'/', router`)
+      app.locals.uses.push(`metricsMiddleware.errorMiddleware(metrics)`)
+      environment.STATSD_HOST = 'metrics.domain.com'
+      environment.STATSD_PORT = '8125'
+      environment.JOB = 'job_' + apiName
+    }
+
+    //Write routes
+    if(!options.metrics)
+      app.locals.uses.push(`app.use('/', router)`)
 
     //write rendered files
     write(path.join(dir,'.env'), buildEnvironmentVars(environment))

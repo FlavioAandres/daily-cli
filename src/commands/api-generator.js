@@ -26,6 +26,7 @@ ApiGeneratorCommand.flags = {
   knex: flags.boolean({char: 'k', description: 'Install knex dependency', default: false}),
   mongo: flags.boolean({char: 'm', description: 'Install mongodb dependency', default: false}),
   docker: flags.boolean({char: 'd', description: 'Creates a Docker File in the root project directory', default: true}),
+  metrics: flags.boolean({description: 'Install @condorlabs/metrics middleware', default: false}),
 }
 
 module.exports = ApiGeneratorCommand
