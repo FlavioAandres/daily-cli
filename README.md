@@ -89,7 +89,10 @@ USAGE
   $ daily-cli api-generator
 
 OPTIONS
-  -n, --name=name  name to print
+  -d, --docker     Creates a Docker File in the root project directory
+  -k, --knex       Install knex dependency
+  -m, --mongo      Install mongodb dependency
+  -n, --name=name  API Name
 
 DESCRIPTION
   ...

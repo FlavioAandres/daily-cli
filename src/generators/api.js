@@ -47,7 +47,8 @@ function buildEnvironmentVars(envs){
 module.exports = async function ({
   dir = 'c:/template-test',
   apiName =  'daily-api-template', 
-  options =  {mongo: false, docker: false}
+  options =  {mongo: false, docker: false},
+  logger
 }) {
     const app = loadTemplate(RELATIVE_EXPRESS_PATH);
     const router = loadTemplate(RELATIVE_ROUTER_PATH);
@@ -82,6 +83,8 @@ module.exports = async function ({
       createFolding(dir + '/src/database')
     }
     
+
+    //Load packages
     if(options.mongo){
       const mongodb = loadTemplate(RELATIVE_MONGOOSE_PATH)
 
@@ -117,10 +120,9 @@ module.exports = async function ({
     write(path.join(dir, RELATIVE_SERVER_PATH + '.js'), server.render())
     write(path.join(dir, RELATIVE_ROUTER_PATH + '.js'), router.render())
 
-    //npm install
+    //install dependencies 
     process.chdir(dir)
-    console.log('Installing Npm packages')
+    logger('Installing Npm packages')
     const {stdout} = await execa('npm', ['install'])
-    console.log(stdout)
-    // execa('npm', ['install']).stdout.pipe(process.stdout);
+    logger(stdout)
 }
