@@ -1,0 +1,12 @@
+{
+  "name": "daily-cli-api",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "dependencies": {
+    "debug": "~2.6.9",
+    "dotenv": "~8.2.0",
+    "express": "~4.16.1"
+  }
+}

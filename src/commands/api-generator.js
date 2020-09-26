@@ -1,5 +1,5 @@
 const {Command, flags} = require('@oclif/command')
-const APIGenerator = require('../generators/api')
+const { Generators } = require('../api')
 const path = require('path')
 class ApiGeneratorCommand extends Command {
   async run() {
@@ -7,7 +7,7 @@ class ApiGeneratorCommand extends Command {
     const name = flags.name || 'daily-cli-api'
     const absolutePath = path.join(process.cwd(), name);
     this.log(`creating API Template at ${absolutePath}`)
-    APIGenerator({
+    Generators.api({
       logger: this.log,
       dir: absolutePath, 
       apiName: name, 
