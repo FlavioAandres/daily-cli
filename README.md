@@ -14,6 +14,7 @@ We want to build a set of tools useful for all developers allways thinking in ma
 
 
 <!-- toc -->
+* [Description](#description)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -98,7 +99,7 @@ USAGE
   $ daily-cli aws-accounts ACTION
 
 ARGUMENTS
-  ACTION  (add|remove|show) action that will do the command
+  ACTION  (add|remove|show|to) action that will do the command
 
 OPTIONS
   -k, --key=key        Access Key of the AWS account
@@ -124,6 +125,9 @@ OPTIONS
   -p, --path=path  configuration absolute path file
 
 DESCRIPTION
+  Use this command for your first initialization of this module, you can use it to load the urls groups to open it later
+
+  * --path is mandatory
   ...
   Extra documentation goes here https://github.com/FlavioAandres/daily-cli
 ```
