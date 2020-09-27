@@ -1,14 +1,17 @@
 daily-cli
 =========
 
-multicommand cli to make the developer life easier
-
-Are you a bored developer in charge of support? We're here for you. 
-
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-<!-- [![Version](https://img.shields.io/npm/v/daily-cli.svg)](https://npmjs.org/package/daily-cli)
+[![Version](https://img.shields.io/npm/v/daily-cli.svg)](https://npmjs.org/package/daily-cli)
 [![Downloads/week](https://img.shields.io/npm/dw/daily-cli.svg)](https://npmjs.org/package/daily-cli)
-[![License](https://img.shields.io/npm/l/daily-cli.svg)](https://github.com/@FlavioAandres/FlavioAandres/blob/master/package.json) -->
+[![License](https://img.shields.io/npm/l/daily-cli.svg)](https://github.com/@FlavioAandres/FlavioAandres/blob/master/package.json)
+
+# Description
+
+We want to build a set of tools useful for all developers allways thinking in making the developer life easier.
+
+*Are you a bored developer in charge of support? We're here for you.*
+
 
 <!-- toc -->
 * [Usage](#usage)
@@ -51,23 +54,25 @@ Create a file in your system using the following sintax
     "interface": {
         "urls": ["https://google.com","https://yahoo.com"]
     },
-    "elk": {
-        "urls": ["https://elk.flavioaandres.com/search/", "https://elk.flavioaandres.com/search/2"]
-    },
-    "metrics": {
-        "urls": ["https://metrics.flavioaandres.com/search/"]
+    "start-day": {
+        "urls": ["https://mail.google.com", "https://your-business.slack.com"]
     }
 }
-
 ```
 
-### To Configure: 
+Note: each new key added in the config object will be taken as a URL group and this name will be used to run the commands. 
+
+## To Configure: 
 
 ``` bash
 $ daily-cli configure --path c:/configs.json
 ```
 
-### `To open all urls`
+- `--path` is mandatory, you should pass an absolute path of your config file
+
+![](https://s3.amazonaws.com/public.flavioaandres.com/configure_and_urls.gif)
+
+## `To open all urls`
 
 sintax `daily-cli run <interface> --task urls` you can use `-t` to run `--task`
 
@@ -109,7 +114,7 @@ _See code: [src/commands/aws-accounts.js](https://github.com/FlavioAandres/daily
 
 ## `daily-cli configure`
 
-Hi!
+Use this command for your first initialization of this module, you can use it to load the urls groups to open it later
 
 ```
 USAGE
