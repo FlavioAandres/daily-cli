@@ -11,17 +11,23 @@ Are you a bored developer in charge of support? We're here for you.
 [![License](https://img.shields.io/npm/l/daily-cli.svg)](https://github.com/@FlavioAandres/FlavioAandres/blob/master/package.json) -->
 
 <!-- toc -->
-# Functionalities
-
-* [Open a url group in your browser](#To-open-all-urls)
-* [Generate express API + knex + metrics + mongodb](#daily-cli-api-generator)
-
-## More... 
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
 # Usage
 <!-- usage -->
+```sh-session
+$ npm install -g daily-cli
+$ daily-cli COMMAND
+running command...
+$ daily-cli (-v|--version|version)
+daily-cli/0.0.4 darwin-x64 node-v12.16.2
+$ daily-cli --help [COMMAND]
+USAGE
+  $ daily-cli COMMAND
+...
+```
+<!-- usagestop -->
 ```sh-session
 $ npm install -g daily-cli
 $ daily-cli COMMAND
@@ -69,6 +75,7 @@ $ daily-cli run elk --task urls
 # Commands
 <!-- commands -->
 * [`daily-cli api-generator`](#daily-cli-api-generator)
+* [`daily-cli aws-accounts ACTION`](#daily-cli-aws-accounts-action)
 * [`daily-cli configure`](#daily-cli-configure)
 * [`daily-cli hello`](#daily-cli-hello)
 * [`daily-cli help [COMMAND]`](#daily-cli-help-command)
@@ -93,7 +100,30 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src\commands\api-generator.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.3/src\commands\api-generator.js)_
+_See code: [src/commands/api-generator.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.4/src/commands/api-generator.js)_
+
+## `daily-cli aws-accounts ACTION`
+
+Describe the command here
+
+```
+USAGE
+  $ daily-cli aws-accounts ACTION
+
+ARGUMENTS
+  ACTION  (add|remove|show|to) action that will do the command
+
+OPTIONS
+  -k, --key=key        Access Key of the AWS account
+  -n, --name=name      (required) Name of the AWS account
+  -s, --secret=secret  Secret Access Key of the AWS account
+
+DESCRIPTION
+  ...
+  Allow to adminsitrate your AWS accounts
+```
+
+_See code: [src/commands/aws-accounts.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.4/src/commands/aws-accounts.js)_
 
 ## `daily-cli configure`
 
@@ -111,7 +141,7 @@ DESCRIPTION
   Extra documentation goes here https://github.com/FlavioAandres/daily-cli
 ```
 
-_See code: [src\commands\configure.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.3/src\commands\configure.js)_
+_See code: [src/commands/configure.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.4/src/commands/configure.js)_
 
 ## `daily-cli hello`
 
@@ -129,7 +159,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src\commands\hello.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.3/src\commands\hello.js)_
+_See code: [src/commands/hello.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.4/src/commands/hello.js)_
 
 ## `daily-cli help [COMMAND]`
 
@@ -146,7 +176,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src\commands\help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
 
 ## `daily-cli run`
 
@@ -164,5 +194,5 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src\commands\run.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.3/src\commands\run.js)_
+_See code: [src/commands/run.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.4/src/commands/run.js)_
 <!-- commandsstop -->
