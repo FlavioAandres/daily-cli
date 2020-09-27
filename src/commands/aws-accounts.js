@@ -67,24 +67,11 @@ class AWSAccounts extends Command {
           );
 
           if (credentialFilter.length === 1) {
-            const credential = credentials[0];
-            // Creating Options for the new default profile from the profile previously selected.
-            const options = {
-              new_name: "default",
-              access_key: credential.aws_access_key_id,
-              secret_access_key: credential.aws_secret_access_key,
-              region: credential.region,
-              output: credential.output,
-              cli_timestamp_format: credential.cli_timestamp_format,
-              cli_follow_urlparam: credential.cli_follow_urlparam,
-              ca_bundle: credential.ca_bundle,
-              parameter_validation: credential.parameter_validation,
-              tcp_keepalive: credential.tcp_keepalive,
-              max_attempts: credential.max_attempts,
-              retry_mode: credential.retry_mode,
-            };
+            const credential = credentialFilter[0];
+            delete credential.name;
+
             //Editing the current default profile
-            AWSCredentials.edit_profile("default", options);
+            AWSCredentials.edit_profile("default", credential);
 
             //Save the new profile object
             const fileSaved = AWSCredentials.save_file();
