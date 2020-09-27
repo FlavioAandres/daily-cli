@@ -17,9 +17,9 @@ class AWSAccounts extends Command {
 
   async run() {
     const { flags, args } = this.parse(AWSAccounts);
-    const name = flags.name || undefined;
-    const access_key = flags.key || undefined;
-    const secret_access_key = flags.secret || undefined;
+    const name = flags.name;
+    const access_key = flags.key;
+    const secret_access_key = flags.secret;
 
     switch (args.action) {
       case "add": {
@@ -68,21 +68,24 @@ class AWSAccounts extends Command {
 
 AWSAccounts.description = `Describe the command here
 ...
-Allow to adminsitrate your AWS accounts
+Allow administrating your AWS accounts
 `;
 
 AWSAccounts.flags = {
   name: flags.string({
     char: "n",
     description: "Name of the AWS account",
+    default: undefined,
   }),
   key: flags.string({
     char: "k",
     description: "Access Key of the AWS account",
+    default: undefined,
   }),
   secret: flags.string({
     char: "sk",
     description: "Secret Access Key of the AWS account",
+    default: undefined,
   }),
 };
 

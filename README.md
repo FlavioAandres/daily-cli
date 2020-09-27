@@ -14,7 +14,9 @@ Are you a bored developer in charge of support? We're here for you.
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
 ```sh-session
 $ npm install -g daily-cli
@@ -43,7 +45,8 @@ USAGE
 ## Getting started 
 
 Create a file in your system using the following sintax
-```json
+
+``` json
 {
     "interface": {
         "urls": ["https://google.com","https://yahoo.com"]
@@ -60,7 +63,7 @@ Create a file in your system using the following sintax
 
 ### To Configure: 
 
-```bash
+``` bash
 $ daily-cli configure --path c:/configs.json
 ```
 
@@ -68,39 +71,18 @@ $ daily-cli configure --path c:/configs.json
 
 sintax `daily-cli run <interface> --task urls` you can use `-t` to run `--task`
 
-```bash
+``` bash
 $ daily-cli run elk --task urls
 ```
 
 # Commands
+
 <!-- commands -->
-* [`daily-cli api-generator`](#daily-cli-api-generator)
 * [`daily-cli aws-accounts ACTION`](#daily-cli-aws-accounts-action)
 * [`daily-cli configure`](#daily-cli-configure)
 * [`daily-cli hello`](#daily-cli-hello)
 * [`daily-cli help [COMMAND]`](#daily-cli-help-command)
 * [`daily-cli run`](#daily-cli-run)
-
-## `daily-cli api-generator`
-
-Describe the command here
-
-```
-USAGE
-  $ daily-cli api-generator
-
-OPTIONS
-  -d, --docker     Creates a Docker File in the root project directory
-  -k, --knex       Install knex dependency
-  -m, --mongo      Install mongodb dependency
-  -n, --name=name  API Name
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
-```
-
-_See code: [src/commands/api-generator.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.4/src/commands/api-generator.js)_
 
 ## `daily-cli aws-accounts ACTION`
 
@@ -111,16 +93,16 @@ USAGE
   $ daily-cli aws-accounts ACTION
 
 ARGUMENTS
-  ACTION  (add|remove|show|to) action that will do the command
+  ACTION  (add|remove|show) action that will do the command
 
 OPTIONS
   -k, --key=key        Access Key of the AWS account
-  -n, --name=name      (required) Name of the AWS account
+  -n, --name=name      Name of the AWS account
   -s, --secret=secret  Secret Access Key of the AWS account
 
 DESCRIPTION
   ...
-  Allow to adminsitrate your AWS accounts
+  Allow administrating your AWS accounts
 ```
 
 _See code: [src/commands/aws-accounts.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.4/src/commands/aws-accounts.js)_
