@@ -56,7 +56,7 @@ class AWSAccounts extends Command {
         );
       }
       case "show": {
-        this.log(AWSCredentials.serialize_credentials());
+        this.log(AWSCredentials.serialize_credentials("object"));
         break;
       }
       default: {
