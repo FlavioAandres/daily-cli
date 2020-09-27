@@ -1,5 +1,8 @@
 const { Command, flags } = require("@oclif/command");
 const AWSCredentials = require("manage-aws-credentials");
+const spawn = require("child_process").spawn;
+const path = require("path");
+const os = require("os");
 
 class AWSAccounts extends Command {
   static args = [
@@ -7,7 +10,7 @@ class AWSAccounts extends Command {
       name: "action",
       required: true,
       hidden: false,
-      options: ["add", "remove", "show", "to"],
+      options: ["add", "remove", "show"],
       description: "action that will do the command",
     },
   ];
@@ -56,10 +59,6 @@ class AWSAccounts extends Command {
         this.log(AWSCredentials.serialize_credentials());
         break;
       }
-      case "to": {
-        throw new Error(`Action not implemented yet`);
-        break;
-      }
       default: {
         break;
       }
@@ -76,7 +75,6 @@ AWSAccounts.flags = {
   name: flags.string({
     char: "n",
     description: "Name of the AWS account",
-    required: true,
   }),
   key: flags.string({
     char: "k",

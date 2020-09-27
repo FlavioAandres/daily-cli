@@ -14,7 +14,7 @@
     "ejs": "^3.1.5",
     "execa": "^4.0.3",
     "json5": "^2.1.3",
-    "manage-aws-credentials": "^1.6.0",
+    "manage-aws-credentials": "^1.6.1",
     "opn": "^6.0.0"
   },
   "devDependencies": {
