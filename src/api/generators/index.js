@@ -1,3 +1,1 @@
-const api = require('./api')
-
-exports.api = api;
+exports.api = require('./api');

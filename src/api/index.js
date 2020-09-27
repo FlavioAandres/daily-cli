@@ -1,7 +1,4 @@
-const Generators = require('./generators')
-const Health = require('./health')
-
 module.exports = {
-    Generators,
-    Health
+    Generators =require('./generators'),
+    Health = require('./health')
 }

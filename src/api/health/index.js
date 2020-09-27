@@ -7,7 +7,9 @@ const Parser = require('rss-parser')
 
 const { externalServices } = require('../../configs')
 
-const parser = new Parser()
+exports.config = externalServices;
+
+const parserRSS = new Parser()
 
 const fetchData = (service) => {
     return fetch(service).then(response => response.json())
@@ -51,7 +53,7 @@ exports.render = async (responseData, configService, { flags, log }) => {
                 color: 'yellow'
             }).start()
 
-            const { items, ...rest } = await parser.parseURL(config.rss)
+            const { items, ...rest } = await parserRSS.parseURL(config.rss)
                 .finally(() => spinner.stop())
 
             log(`      ${chalk.bold(rest.title)}`)
@@ -108,4 +110,3 @@ exports.statusRequest = (services) => {
     return result;
 }
 
-exports.config = externalServices;
