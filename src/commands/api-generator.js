@@ -4,57 +4,49 @@ const path = require('path')
 const { MultiSelect, Input } = require('enquirer')
 
 class ApiGeneratorCommand extends Command {
-  async interactive({ name, ...options }) {
-    const response = { options }
+  async inputCase({ name, ...options }) {
+    const nextResponse = { name, options }
 
     if (!name) {
       const inputName = new Input({
-        message: "What is your api's name",
+        message: "What is the api's name",
         initial: 'daily-cli-api'
       });
 
-      response.name = await inputName.run();
+      nextResponse.name = await inputName.run();
     }
 
     const entriesOptions = Object.entries(options);
 
-    if (entriesOptions.every(([_key, value]) => !value)) {
+    if (entriesOptions.every(([_, value]) => !value)) {
 
-      const nextChoices = entriesOptions.map(([key, value]) => ({ name: key, value: key, disabled: value ? '(previously selected ↩)' : false }))
-
-      const currentSelected = entriesOptions.filter(([_key, value]) => value).map(([key]) => key);
+      const nextChoices = entriesOptions.map(([key, value]) => ({ name: key, disabled: value ? '(previously selected ↩)' : false }))
 
       const selectPackages = new MultiSelect({
         name: 'options',
         message: 'Pick the next packages',
-        limit: 7,
         choices: nextChoices
       });
 
       const packages = await selectPackages.run();
 
-      this.log([...packages, ...currentSelected])
-
-      response.options = packages.reduce((prev, current) => ({ ...prev, [current]: true }), response.options)
+      nextResponse.options = packages.reduce((prev, current) => ({ ...prev, [current]: true }), nextResponse.options)
     }
 
-    this.log(response)
+    return nextResponse;
   }
 
   async run() {
     const {flags} = this.parse(ApiGeneratorCommand)
-    const name = flags.name || 'daily-cli-api'
+    const { name, options } = await this.inputCase(flags)
     const absolutePath = path.join(process.cwd(), name);
-    console.log(flags)
-    this.log(`creating API Template at ${absolutePath}`)
-    await this.interactive(flags)
-    this.log('Done')
-    // APIGenerator({
-    //   logger: this.log,
-    //   dir: absolutePath, 
-    //   apiName: name, 
-    //   options: flags
-    // })
+    this.log(`Creating API Template at ${absolutePath}`)
+    APIGenerator({
+      logger: this.log,
+      dir: absolutePath,
+      apiName: name,
+      options
+    })
   }
 }
 
