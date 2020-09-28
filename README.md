@@ -15,35 +15,15 @@ We want to build a set of tools useful for all developers allways thinking in ma
 
 <!-- toc -->
 * [Description](#description)
-* [Usage](#usage)
+* [Usage](#installation)
 * [Commands](#commands)
 <!-- tocstop -->
 
-# Usage
+# Installation
 
 <!-- usage -->
 ```sh-session
 $ npm install -g daily-cli
-$ daily-cli COMMAND
-running command...
-$ daily-cli (-v|--version|version)
-daily-cli/0.0.4 darwin-x64 node-v12.16.2
-$ daily-cli --help [COMMAND]
-USAGE
-  $ daily-cli COMMAND
-...
-```
-<!-- usagestop -->
-```sh-session
-$ npm install -g daily-cli
-$ daily-cli COMMAND
-running command...
-$ daily-cli (-v|--version|version)
-daily-cli/0.0.3 win32-x64 node-v12.16.2
-$ daily-cli --help [COMMAND]
-USAGE
-  $ daily-cli COMMAND
-...
 ```
 
 ## Getting started 
