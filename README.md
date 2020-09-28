@@ -14,27 +14,43 @@ We want to build a set of tools useful for all developers allways thinking in ma
 
 
 <!-- toc -->
-
-# Main Functionalities
-
-* [Open a group of URLS in your browser](#To-open-all-urls)
-* [Generate express API + knex + metrics + mongodb](#daily-cli-api-generator)
-
-## More... 
-* [Installation](#installation)
+* [Description](#description)
+* [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
-# Installation
+
+# Usage
+
 <!-- usage -->
 ```sh-session
 $ npm install -g daily-cli
+$ daily-cli COMMAND
+running command...
+$ daily-cli (-v|--version|version)
+daily-cli/0.0.4 darwin-x64 node-v12.16.2
+$ daily-cli --help [COMMAND]
+USAGE
+  $ daily-cli COMMAND
+...
+```
+<!-- usagestop -->
+```sh-session
+$ npm install -g daily-cli
+$ daily-cli COMMAND
+running command...
+$ daily-cli (-v|--version|version)
+daily-cli/0.0.3 win32-x64 node-v12.16.2
+$ daily-cli --help [COMMAND]
+USAGE
+  $ daily-cli COMMAND
+...
 ```
 
 ## Getting started 
 
-Create a file in your system using the following sintax: 
+Create a file in your system using the following sintax
 
-```json
+``` json
 {
     "interface": {
         "urls": ["https://google.com","https://yahoo.com"]
@@ -49,7 +65,7 @@ Note: each new key added in the config object will be taken as a URL group and t
 
 ## To Configure: 
 
-```bash
+``` bash
 $ daily-cli configure --path c:/configs.json
 ```
 
@@ -61,38 +77,41 @@ $ daily-cli configure --path c:/configs.json
 
 sintax `daily-cli run <interface> --task urls` you can use `-t` to run `--task`
 
-```bash
-$ daily-cli run start-day --task urls
+``` bash
+$ daily-cli run elk --task urls
 ```
 
 # Commands
+
 <!-- commands -->
-* [`daily-cli api-generator`](#daily-cli-api-generator)
+* [`daily-cli aws-accounts ACTION`](#daily-cli-aws-accounts-action)
 * [`daily-cli configure`](#daily-cli-configure)
 * [`daily-cli hello`](#daily-cli-hello)
 * [`daily-cli help [COMMAND]`](#daily-cli-help-command)
 * [`daily-cli run`](#daily-cli-run)
 
-## `daily-cli api-generator`
+## `daily-cli aws-accounts ACTION`
 
 Describe the command here
 
 ```
 USAGE
-  $ daily-cli api-generator
+  $ daily-cli aws-accounts ACTION
+
+ARGUMENTS
+  ACTION  (add|remove|show|to) action that will do the command
 
 OPTIONS
-  -d, --docker     Creates a Docker File in the root project directory
-  -k, --knex       Install knex dependency
-  -m, --mongo      Install mongodb dependency
-  -n, --name=name  API Name
+  -k, --key=key        Access Key of the AWS account
+  -n, --name=name      Name of the AWS account
+  -s, --secret=secret  Secret Access Key of the AWS account
 
 DESCRIPTION
   ...
-  Extra documentation goes here
+  Allow administrating your AWS accounts
 ```
 
-_See code: [src\commands\api-generator.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.3/src\commands\api-generator.js)_
+_See code: [src/commands/aws-accounts.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.4/src/commands/aws-accounts.js)_
 
 ## `daily-cli configure`
 
@@ -106,11 +125,32 @@ OPTIONS
   -p, --path=path  configuration absolute path file
 
 DESCRIPTION
+  Use this command for your first initialization of this module, you can use it to load the urls groups to open it later
+
+  * --path is mandatory
   ...
   Extra documentation goes here https://github.com/FlavioAandres/daily-cli
 ```
 
-_See code: [src\commands\configure.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.3/src\commands\configure.js)_
+_See code: [src/commands/configure.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.4/src/commands/configure.js)_
+
+## `daily-cli hello`
+
+Describe the command here
+
+```
+USAGE
+  $ daily-cli hello
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/hello.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.4/src/commands/hello.js)_
 
 ## `daily-cli help [COMMAND]`
 
@@ -127,7 +167,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src\commands\help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
 
 ## `daily-cli run`
 
@@ -145,5 +185,5 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src\commands\run.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.3/src\commands\run.js)_
+_See code: [src/commands/run.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.4/src/commands/run.js)_
 <!-- commandsstop -->
