@@ -24,7 +24,7 @@ class ApiGeneratorCommand extends Command {
 
       const selectPackages = new MultiSelect({
         name: 'options',
-        message: 'Pick the next packages',
+        message: 'Pick the next packages (space)',
         choices: nextChoices
       });
 
