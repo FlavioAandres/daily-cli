@@ -48,7 +48,10 @@ class ConfigureCommand extends Command {
   }
 }
 
-ConfigureCommand.description = `Hi!
+ConfigureCommand.description = `
+Use this command for your first initialization of this module, you can use it to load the urls groups to open it later
+
+* --path is mandatory
 ...
 Extra documentation goes here https://github.com/FlavioAandres/daily-cli
 `

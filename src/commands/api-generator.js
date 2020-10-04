@@ -1,5 +1,5 @@
 const {Command, flags} = require('@oclif/command')
-const APIGenerator = require('../generators/api')
+const { Generators } = require('../api')
 const path = require('path')
 const { MultiSelect, Input } = require('enquirer')
 
@@ -40,8 +40,8 @@ class ApiGeneratorCommand extends Command {
     const {flags} = this.parse(ApiGeneratorCommand)
     const { name, options } = await this.inputCase(flags)
     const absolutePath = path.join(process.cwd(), name);
-    this.log(`Creating API Template at ${absolutePath}`)
-    APIGenerator({
+    this.log(`creating API Template at ${absolutePath}`)
+    Generators.api({
       logger: this.log,
       dir: absolutePath,
       apiName: name,
