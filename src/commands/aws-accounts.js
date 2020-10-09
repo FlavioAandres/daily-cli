@@ -105,11 +105,12 @@ class AWSAccounts extends Command {
           ? "Your default account was successfully switched"
           : "There were an issue switching your default account"
       );
+    }else{
+      throw new Error(
+        `Looks like that there is not a profile with the given name, use the command aws-accounts show to get the list of current profiles`
+      );
     }
     
-    throw new Error(
-      `Looks like that there is not a profile with the given name, use the command aws-accounts show to get the list of current profiles`
-    );
   }
 
   async run() {
