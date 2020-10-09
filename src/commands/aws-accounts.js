@@ -34,10 +34,10 @@ class AWSAccounts extends Command {
       name = await this.InputName('add').run()
     }
     if(!key){
-      access_key = await this.InputAccsessKey().run()
+      key = await this.InputAccsessKey().run()
     }
     if(!secret){
-      secret_access_key = await this.InputSecretKey().run()
+      secret = await this.InputSecretKey().run()
     }
 
     AWSCredentials.add_profile(name, {
