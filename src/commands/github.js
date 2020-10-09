@@ -1,9 +1,9 @@
 const { Github } = require("../helpers/github");
 const { Command, flags } = require("@oclif/command");
 const { cli } = require("cli-ux");
+const inquirer = require("inquirer");
 const fs = require("fs");
 const path = require("path");
-const { throws } = require("assert");
 
 class GithubCommand extends Command {
   DEFAULT_CONFIG_FILE_NAME = "github";
@@ -62,21 +62,30 @@ class GithubCommand extends Command {
         break;
       }
       case "list": {
+        cli.action.start("Looking for your repositories");
         let repositories = await this.github.listRepositories();
+        cli.action.stop();
         cli.table(
           repositories,
           {
-            owner: {},
+            owner: {
+              extended: true,
+            },
             name: {},
+            created_at: {
+              get: (key) => new Date(key.created_at).toLocaleDateString(),
+            },
+            language: {},
             fullname: {
               extended: true,
             },
-            language: {},
             license: {
               get: (key) => (key.license !== null ? key.license.key : "None"),
+              extended: true,
             },
             private: {
               get: (key) => (key.private ? "yes" : "no"),
+              extended: true,
             },
             url: {
               extended: true,
@@ -86,6 +95,7 @@ class GithubCommand extends Command {
             },
             fork: {
               get: (key) => (key.fork ? "yes" : "no"),
+              extended: true,
             },
             starts: {
               extended: true,
@@ -93,10 +103,11 @@ class GithubCommand extends Command {
             forks: {
               extended: true,
             },
-            watchers: {},
-            issues: {},
-            created_at: {
-              get: (key) => new Date(key.created_at).toLocaleDateString(),
+            watchers: {
+              extended: true,
+            },
+            issues: {
+              extended: true,
             },
             updated_at: {
               extended: true,
@@ -106,9 +117,11 @@ class GithubCommand extends Command {
             },
             archived: {
               get: (key) => (key.archived ? "yes" : "no"),
+              extended: true,
             },
             disabled: {
               get: (key) => (key.disabled ? "yes" : "no"),
+              extended: true,
             },
           },
           {
@@ -118,7 +131,6 @@ class GithubCommand extends Command {
         );
         break;
       }
-
       case "create": {
         try {
           if (flags.repository) {
@@ -151,20 +163,49 @@ class GithubCommand extends Command {
       }
       case "delete": {
         try {
-          if (flags.repository && flags.owner) {
+          cli.action.start("Looking for your repositories");
+          let repositories = await this.github.listRepositories();
+          cli.action.stop();
+
+          const repositoriesAuthUser = repositories.filter(
+            (repository) => repository.owner
+          );
+          const repositoriesFullNames = repositoriesAuthUser.map(
+            (repository) => {
+              return { name: repository.fullname };
+            }
+          );
+
+          let response = inquirer.prompt({
+            name: "Repository",
+            message: "Select a repository",
+            type: "list",
+            choices: repositoriesFullNames,
+          });
+
+          let repositoryToDelete = (await response).Repository;
+
+          const [owner, repo] = repositoryToDelete.split("/");
+
+          let confirmation = inquirer.prompt({
+            name: "anwser",
+            message: `Are you sure to delete the repository ${repositoryToDelete}`,
+            type: "confirm",
+            default: true,
+          });
+
+          const answer = (await confirmation).anwser;
+
+          if (answer) {
             const response = await this.github.deleteRepository({
-              repo: flags.repository,
-              owner: flags.owner,
+              repo: repo,
+              owner: owner,
             });
             const logPrint =
               response && response.status == 204
                 ? "✅ Repository deleted successfully"
-                : `❌ There was an error at try to delete the repository ${flags.owner}/${flags.repository}`;
+                : `❌ There was an error at try to delete the repository ${repositoryToDelete}}`;
             this.log(logPrint);
-          } else {
-            this.log(
-              `❌ The flags repository & owner are required to perform this action, see daily-cli github --help`
-            );
           }
         } catch (error) {
           this.log(

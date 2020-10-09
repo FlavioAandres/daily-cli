@@ -12,6 +12,7 @@ class Github {
 
     const repositories = repositoriesList.data.reduce(
       (repositoriesArray, currentRepository) => {
+        
         const repository = {
           name: currentRepository.name,
           owner: currentRepository.owner.login,
@@ -31,6 +32,7 @@ class Github {
           disabled: currentRepository.disabled,
           issues: currentRepository.open_issues,
           license: currentRepository.license,
+          admin: currentRepository.permissions && currentRepository.permissions.admin ? true : false
         };
 
         repositoriesArray.push(repository);
