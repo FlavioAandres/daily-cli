@@ -29,20 +29,20 @@ class AWSAccounts extends Command {
     required: true,
   });
 
-  handleAddAction = async ({name, access_key, secret_access_key})=>{
+  handleAddAction = async ({name, key, secret})=>{
     if(!name){
       name = await this.InputName('add').run()
     }
-    if(!access_key){
+    if(!key){
       access_key = await this.InputAccsessKey().run()
     }
-    if(!secret_access_key){
+    if(!secret){
       secret_access_key = await this.InputSecretKey().run()
     }
 
     AWSCredentials.add_profile(name, {
-      access_key,
-      secret_access_key,
+      access_key: key,
+      secret_access_key: secret,
     });
     const fileSaved = AWSCredentials.save_file();
     this.log(
