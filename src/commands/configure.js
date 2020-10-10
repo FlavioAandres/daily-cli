@@ -16,13 +16,10 @@ class ConfigureCommand extends Command {
     if (!existsFile) throw new Error('file doesnt exists')
     const file = require(path)
     this.log('✔ file found')
-    this.commandConfig.interfaces = []
 
     for (const key in file) {
       if (key === 'default') throw new Error('default is not allowed as principal key')
       if (!Object.keys(file[key]).length) throw new Error('someting goes wrong importing the key ' + key)
-
-      this.commandConfig.interfaces.push(key)
 
       const keySettings = {
         ...file[key],
