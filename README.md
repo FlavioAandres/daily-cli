@@ -79,6 +79,7 @@ $ daily-cli run elk --task urls
 * [`daily-cli api-generator`](#daily-cli-api-generator)
 * [`daily-cli aws-accounts ACTION`](#daily-cli-aws-accounts-action)
 * [`daily-cli configure`](#daily-cli-configure)
+* [`daily-cli github ACTION`](#daily-cli-github-action)
 * [`daily-cli health`](#daily-cli-health)
 * [`daily-cli hello`](#daily-cli-hello)
 * [`daily-cli help [COMMAND]`](#daily-cli-help-command)
@@ -99,12 +100,15 @@ OPTIONS
   -n, --name=name  API Name
   --metrics        Install @condorlabs/metrics middleware
 
+
 DESCRIPTION
   ...
   Extra documentation goes here
 ```
 
-_See code: [src/commands/api-generator.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.5/src/commands/api-generator.js)_
+
+_See code: [src/commands/api-generator.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/api-generator.js)_
+
 
 ## `daily-cli aws-accounts ACTION`
 
@@ -127,7 +131,9 @@ DESCRIPTION
   Allow administrating your AWS accounts
 ```
 
-_See code: [src/commands/aws-accounts.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.5/src/commands/aws-accounts.js)_
+
+_See code: [src/commands/aws-accounts.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/aws-accounts.js)_
+
 
 ## `daily-cli configure`
 
@@ -148,7 +154,46 @@ DESCRIPTION
   Extra documentation goes here https://github.com/FlavioAandres/daily-cli
 ```
 
-_See code: [src/commands/configure.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.5/src/commands/configure.js)_
+
+_See code: [src/commands/configure.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/configure.js)_
+
+## `daily-cli github ACTION`
+
+...
+
+```
+USAGE
+  $ daily-cli github ACTION
+
+ARGUMENTS
+  ACTION  (list|create|delete|configure|create-release) action that will do the command
+
+OPTIONS
+  -a, --auto_init=auto_init      Create an initial README.md
+  -d, --description=description  Repository description
+  -i, --has_issues=has_issues    [default: true] Allow repository issues
+  -o, --owner=owner              Repository Owner
+  -p, --private=private          Set repository private
+  -r, --repository=repository    Repository name
+  -t, --is_template=is_template  Set repository as a template
+  -w, --has_wiki=has_wiki        [default: true] Allow repository wiki
+  --github_token=github_token    Github token for github command.
+  --gitignore=gitignore          Set a gitignore template
+  --has_projects=has_projects    [default: true] Allow repository project
+
+DESCRIPTION
+  ...
+     Github automatizated!!.
+
+     > Set up your github token first: daily-cli github configure --github-token "TOKEN"
+
+     Generate your token on this way 
+  https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token
+     Required access: Repo
+```
+
+_See code: [src/commands/github.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/github.js)_
+
 
 ## `daily-cli health`
 
@@ -180,7 +225,8 @@ EXAMPLES
   $ health -s github trello
 ```
 
-_See code: [src/commands/health.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.5/src/commands/health.js)_
+_See code: [src/commands/health.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/health.js)_
+
 
 ## `daily-cli hello`
 
@@ -201,7 +247,9 @@ EXAMPLE
   $ daily-cli hello --name pecue
 ```
 
-_See code: [src/commands/hello.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.5/src/commands/hello.js)_
+
+_See code: [src/commands/hello.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/hello.js)_
+
 
 ## `daily-cli help [COMMAND]`
 
@@ -236,5 +284,5 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/run.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.5/src/commands/run.js)_
+_See code: [src/commands/run.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/run.js)_
 <!-- commandsstop -->
