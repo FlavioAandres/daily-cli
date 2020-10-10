@@ -10,24 +10,29 @@ module.exports = class Config {
         this.loadConfig()
     }
 
-    getConfig = (action) => {
-        if (this.configuration[action]) {
-            return this.configuration[action]
+    getConfig = (command) => {
+        if (this.configuration[command]) {
+            return this.configuration[command]
         }
         return {}
     }
 
-    addConfig = (action, name, value) => {
+    addConfig = (command, key, value) => {
         try {
-            if (!this.configuration[action]) {
-                this.configuration[action] = {}
+            if (!this.configuration[command]) {
+                this.configuration[command] = {}
             }
             
-            if (!this.configuration[action][name]) {
-                this.configuration[action][name] = {}
-            }
+            if (!this.configuration[command][key]) {
 
-            Object.assign(this.configuration[action][name], value)
+                if(typeof value === 'object'){
+                    this.configuration[command][key] = {}
+                    Object.assign(this.configuration[command][key], value)
+                }else{
+                    this.configuration[command][key] = value;
+                }
+                
+            }            
 
             this.createFile()
 
