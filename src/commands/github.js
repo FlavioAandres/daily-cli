@@ -1,9 +1,10 @@
 const { Github } = require("../helpers/github");
 const { Command, flags } = require("@oclif/command");
 const { cli } = require("cli-ux");
-const inquirer = require("inquirer");
+const { Select, Confirm, Input } = require('enquirer');
 const fs = require("fs");
 const path = require("path");
+
 
 class GithubCommand extends Command {
   DEFAULT_CONFIG_FILE_NAME = "github";
@@ -14,7 +15,7 @@ class GithubCommand extends Command {
       name: "action",
       required: true,
       hidden: false,
-      options: ["list", "create", "delete", "configure"],
+      options: ["list", "create", "delete", "configure", "create-release"],
       description: "action that will do the command",
     },
   ];
@@ -33,6 +34,29 @@ class GithubCommand extends Command {
   Required access: Repo
   `;
 
+  repositoriesListPromp = (repositoriesFullNames) => new Select({
+    name: "Repository",
+    message: "Select a repository",
+    type: "list",
+    choices: [...repositoriesFullNames],
+  })
+
+  comfirmDeletePrompt = (repositoryToDelete) => new Confirm({
+    name: 'delete',
+    message: `Are you sure to delete the repository ${repositoryToDelete}?`,
+    initial: true
+  })
+
+  tagNamePrompt = () => new Input({
+    message: "What is the release tag name?"
+  })
+
+  comfirmReleasePromt = (action) => new Confirm({
+    name: 'ReleaseAction',
+    message: `Is this a ${action} release?`,
+    initial: false
+  })
+
   async init() {
     this.loadConfiguration();
     this.github = new Github(this.configuration.github_token);
@@ -50,7 +74,7 @@ class GithubCommand extends Command {
               this.DEFAULT_CONFIG_FILE_NAME,
               JSON.stringify(this.configuration)
             );
-            this.log(`✅ github token loaded`);
+            this.log(`✔ github token loaded`);
           } catch (error) {
             this.log(`❌ There was an error updating the config`, error);
           }
@@ -146,7 +170,7 @@ class GithubCommand extends Command {
             });
             const logPrint =
               response && response.status == 201
-                ? "✅ Repository created successfully"
+                ? "✔ Repository created successfully"
                 : `❌ There was an error at try to create the repository ${flags.repository}`;
             this.log(logPrint);
           } else {
@@ -155,7 +179,7 @@ class GithubCommand extends Command {
             );
           }
         } catch (error) {
-          this.lgo(
+          this.log(
             `❌ There was an error at try to create the repository ${flags.repository}`
           );
         }
@@ -170,46 +194,71 @@ class GithubCommand extends Command {
           const repositoriesAuthUser = repositories.filter(
             (repository) => repository.owner
           );
-          const repositoriesFullNames = repositoriesAuthUser.map(
-            (repository) => {
-              return { name: repository.fullname };
-            }
-          );
 
-          let response = inquirer.prompt({
-            name: "Repository",
-            message: "Select a repository",
-            type: "list",
-            choices: repositoriesFullNames,
-          });
+          const repositoriesFullNames = repositoriesAuthUser.map(repository => repository.fullname);
 
-          let repositoryToDelete = (await response).Repository;
+          let response = await this.repositoriesListPromp(repositoriesFullNames).run()
 
-          const [owner, repo] = repositoryToDelete.split("/");
+          const [owner, repo] = response.split("/");
 
-          let confirmation = inquirer.prompt({
-            name: "anwser",
-            message: `Are you sure to delete the repository ${repositoryToDelete}`,
-            type: "confirm",
-            default: true,
-          });
+          let confirmation = await this.comfirmDeletePrompt(response).run()
 
-          const answer = (await confirmation).anwser;
-
-          if (answer) {
+          if (confirmation) {
             const response = await this.github.deleteRepository({
               repo: repo,
               owner: owner,
             });
             const logPrint =
               response && response.status == 204
-                ? "✅ Repository deleted successfully"
+                ? "✔ Repository deleted successfully"
                 : `❌ There was an error at try to delete the repository ${repositoryToDelete}}`;
             this.log(logPrint);
           }
         } catch (error) {
           this.log(
-            `❌ There was an error at try to delete the repository ${flags.owner}/${flags.repository}`
+            `❌ There was an error at try to delete the repository`
+          );
+        }
+        break;
+      }
+      case "create-release": {
+        try {
+          cli.action.start("Looking for your repositories");
+          let repositories = await this.github.listRepositories();
+          cli.action.stop();
+
+          const repositoriesAuthUser = repositories.filter(
+            (repository) => repository.owner
+          );
+
+          const repositoriesFullNames = repositoriesAuthUser.map(repository => repository.fullname);
+
+          let response = await this.repositoriesListPromp(repositoriesFullNames).run()
+
+          const [owner, repo] = response.split("/");
+
+          let tag_name = await this.tagNamePrompt().run()
+
+          let draftConfirm = await this.comfirmReleasePromt('draft').run()
+
+          let prereleaseConfirm = await this.comfirmReleasePromt('pre-release').run()
+
+          let releaseResponse = await this.github.createRelease({
+            owner: owner,
+            repo: repo,
+            tag_name: tag_name,
+            draft: draftConfirm,
+            prerelease: prereleaseConfirm
+          })
+
+          const logPrint =
+            releaseResponse && releaseResponse.status == 201
+              ? "✔ Release created successfully"
+              : `❌ There was an error at try to create the release ${tag_name}}`;
+          this.log(logPrint);
+        } catch (error) {
+          this.log(
+            `❌ There was an error at try to create the release`
           );
         }
         break;

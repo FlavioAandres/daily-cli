@@ -66,6 +66,18 @@ class Github {
       })
       return response
   }
+
+  async createRelease(options){
+    let response = await this.octokit.repos.createRelease({
+      owner: options.owner,
+      repo: options.repo,
+      tag_name: options.tag_name,
+      draft: options.draft,
+      prerelease: options.prerelease
+    })
+    
+    return response
+  }
 }
 
 module.exports = {

@@ -159,7 +159,7 @@ USAGE
   $ daily-cli github ACTION
 
 ARGUMENTS
-  ACTION  (list|create|delete|configure) action that will do the command
+  ACTION  (list|create|delete|configure|create-release) action that will do the command
 
 OPTIONS
   -a, --auto_init=auto_init      Create an initial README.md
