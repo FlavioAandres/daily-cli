@@ -1,6 +1,6 @@
 const { Octokit } = require("@octokit/rest");
 
-class Github {
+module.exports =  class Github {
   constructor(token) {
     this.octokit = new Octokit({
       auth: token,
@@ -79,7 +79,3 @@ class Github {
     return response
   }
 }
-
-module.exports = {
-  Github,
-};

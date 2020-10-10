@@ -1,3 +1,4 @@
 module.exports = {
-    Config: require('./config')
+    Config: require('./config'),
+    Github: require('./github')
 }

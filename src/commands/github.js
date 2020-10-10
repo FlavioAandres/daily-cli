@@ -1,15 +1,15 @@
-const { Github } = require("../helpers/github");
+const { Github, Config } = require("../helpers");
 const { Command, flags } = require("@oclif/command");
 const { cli } = require("cli-ux");
 const { Select, Confirm, Input } = require('enquirer');
-const fs = require("fs");
-const path = require("path");
+const ora = require('ora')
+
 
 
 class GithubCommand extends Command {
-  DEFAULT_CONFIG_FILE_NAME = "github";
-  DEFAULT_CONFIG_FILE_PATH = "./../configs/github.json";
-  configuration = {};
+  configHelper = new Config()
+  commandConfig = this.configHelper.getConfig('Github')
+
   static args = [
     {
       name: "action",
@@ -28,7 +28,7 @@ class GithubCommand extends Command {
   ...
   Github automatizated!!.
 
-  > Set up your github token first: daily-cli github configure --github-token "TOKEN"
+  > Set up your github token first: daily-cli github configure
 
   Generate your token on this way https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token
   Required access: Repo
@@ -57,9 +57,12 @@ class GithubCommand extends Command {
     initial: false
   })
 
+  githubTokenPrompt = () => new Input({
+    message: "Please, write the github token"
+  })
+
   async init() {
-    this.loadConfiguration();
-    this.github = new Github(this.configuration.github_token);
+    this.github = new Github(this.commandConfig.github_token);
   }
 
   async run() {
@@ -67,28 +70,37 @@ class GithubCommand extends Command {
 
     switch (args.action) {
       case "configure": {
-        if (flags.github_token) {
-          this.configuration.github_token = flags.github_token;
-          try {
-            this.createFile(
-              this.DEFAULT_CONFIG_FILE_NAME,
-              JSON.stringify(this.configuration)
-            );
+
+        try {
+          const github_token = await this.githubTokenPrompt().run()
+
+          if (github_token) {
+            this.configHelper.addConfig('Github', 'github_token', github_token)
             this.log(`✔ github token loaded`);
-          } catch (error) {
-            this.log(`❌ There was an error updating the config`, error);
+
+          } else {
+            this.log(`❌ A github token was not provided, please type a github token`);
           }
-        } else {
-          this.log(
-            `❌ The flag github_token is required to perform this action, see daily-cli github --help`
-          );
+        } catch (error) {
+          this.log(`❌ There was an error updating the config`);
         }
+
         break;
       }
       case "list": {
-        cli.action.start("Looking for your repositories");
+        if (!this.checkToken()) {
+          this.log(
+            `❌ A github token was not found, please configure a token using daily-cli github configure`
+          );
+          break;
+        }
+        const spinner = ora({
+          text: 'Loading your repositories',
+          spinner: 'earth',
+          color: 'gray'
+        }).start()
         let repositories = await this.github.listRepositories();
-        cli.action.stop();
+        spinner.stop();
         cli.table(
           repositories,
           {
@@ -156,6 +168,12 @@ class GithubCommand extends Command {
         break;
       }
       case "create": {
+        if (!this.checkToken()) {
+          this.log(
+            `❌ A github token was not found, please configure a token using daily-cli github configure`
+          );
+          break;
+        }
         try {
           if (flags.repository) {
             let response = await this.github.createRepository({
@@ -186,10 +204,20 @@ class GithubCommand extends Command {
         break;
       }
       case "delete": {
+        if (!this.checkToken()) {
+          this.log(
+            `❌ A github token was not found, please configure a token using daily-cli github configure`
+          );
+          break;
+        }
         try {
-          cli.action.start("Looking for your repositories");
+          const spinner = ora({
+            text: 'Loading your repositories',
+            spinner: 'earth',
+            color: 'gray'
+          }).start()
           let repositories = await this.github.listRepositories();
-          cli.action.stop();
+          spinner.stop();
 
           const repositoriesAuthUser = repositories.filter(
             (repository) => repository.owner
@@ -222,10 +250,20 @@ class GithubCommand extends Command {
         break;
       }
       case "create-release": {
+        if (!this.checkToken()) {
+          this.log(
+            `❌ A github token was not found, please configure a token using daily-cli github configure`
+          );
+          break;
+        }
         try {
-          cli.action.start("Looking for your repositories");
+          const spinner = ora({
+            text: 'Loading your repositories',
+            spinner: 'earth',
+            color: 'gray'
+          }).start()
           let repositories = await this.github.listRepositories();
-          cli.action.stop();
+          spinner.stop();
 
           const repositoriesAuthUser = repositories.filter(
             (repository) => repository.owner
@@ -269,19 +307,11 @@ class GithubCommand extends Command {
     }
   }
 
-  createFile(name, data) {
-    const obsolutePath = path.join(__dirname, `/../configs/${name}.json`);
-    fs.writeFileSync(obsolutePath, data);
+
+  checkToken() {
+    return (!this.commandConfig.github_token ? false : true)
   }
 
-  loadConfiguration() {
-    this.configuration =
-      fs.existsSync(path.join(__dirname, this.DEFAULT_CONFIG_FILE_PATH)) &&
-      require(this.DEFAULT_CONFIG_FILE_PATH);
-    if (!this.configuration) {
-      this.configuration = {};
-    }
-  }
 }
 
 GithubCommand.flags = {
@@ -332,10 +362,6 @@ GithubCommand.flags = {
   gitignore: flags.string({
     description: "Set a gitignore template",
     default: undefined,
-  }),
-  github_token: flags.string({
-    description: "Github token for github command.",
-    default: undefined,
-  }),
+  })
 };
 module.exports = GithubCommand;
