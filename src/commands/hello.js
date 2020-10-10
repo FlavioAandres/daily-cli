@@ -17,4 +17,8 @@ HelloCommand.flags = {
   name: flags.string({char: 'n', description: 'name to print'}),
 }
 
+HelloCommand.examples = [
+  '$ daily-cli hello --name pecue'
+]
+
 module.exports = HelloCommand
