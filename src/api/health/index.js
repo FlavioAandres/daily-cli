@@ -77,7 +77,7 @@ exports.render = async (responseData, { flags, log }) => {
         }
     }
 
-    return configService;
+    return;
 }
 
 exports.purgeDetails = (result, log) => {
