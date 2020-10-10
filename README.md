@@ -27,7 +27,7 @@ $ npm install -g daily-cli
 $ daily-cli COMMAND
 running command...
 $ daily-cli (-v|--version|version)
-daily-cli/0.0.6 darwin-x64 node-v12.16.2
+daily-cli/0.0.5 darwin-x64 node-v12.16.2
 $ daily-cli --help [COMMAND]
 USAGE
   $ daily-cli COMMAND
@@ -98,13 +98,17 @@ OPTIONS
   -k, --knex       Install knex dependency
   -m, --mongo      Install mongodb dependency
   -n, --name=name  API Name
+  --metrics        Install @condorlabs/metrics middleware
+
 
 DESCRIPTION
   ...
   Extra documentation goes here
 ```
 
+
 _See code: [src/commands/api-generator.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/api-generator.js)_
+
 
 ## `daily-cli aws-accounts ACTION`
 
@@ -127,7 +131,9 @@ DESCRIPTION
   Allow administrating your AWS accounts
 ```
 
+
 _See code: [src/commands/aws-accounts.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/aws-accounts.js)_
+
 
 ## `daily-cli configure`
 
@@ -147,6 +153,7 @@ DESCRIPTION
   ...
   Extra documentation goes here https://github.com/FlavioAandres/daily-cli
 ```
+
 
 _See code: [src/commands/configure.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/configure.js)_
 
@@ -187,6 +194,7 @@ DESCRIPTION
 
 _See code: [src/commands/github.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/github.js)_
 
+
 ## `daily-cli health`
 
 Describe the command here
@@ -219,6 +227,7 @@ EXAMPLES
 
 _See code: [src/commands/health.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/health.js)_
 
+
 ## `daily-cli hello`
 
 Describe the command here
@@ -233,9 +242,14 @@ OPTIONS
 DESCRIPTION
   ...
   Extra documentation goes here
+
+EXAMPLE
+  $ daily-cli hello --name pecue
 ```
 
+
 _See code: [src/commands/hello.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/hello.js)_
+
 
 ## `daily-cli help [COMMAND]`
 

@@ -4,12 +4,12 @@ const figures = require('figures')
 const boxen = require('boxen')
 const link = require('terminal-link')
 const Parser = require('rss-parser')
+const { Config } = require('../../helpers')
 
-const { externalServices } = require('../../configs')
-
-exports.config = externalServices;
-
+const configHelper = new Config()
 const parserRSS = new Parser()
+
+const config = configHelper.getConfig('health')
 
 const fetchData = (service) => {
     return fetch(service).then(response => response.json())
@@ -29,15 +29,15 @@ const textChunks = (text, final = '') => {
     return textChunks(words.join(' '), final)
 }
 
-exports.render = async (responseData, configService, { flags, log }) => {
+exports.render = async (responseData, { flags, log }) => {
     for (const item of responseData) {
         const { page, status } = item
 
         const name = page.name.toLowerCase();
 
-        const config = configService[name]
+        const serviceConfig = config[name.split(' ')[0]]
 
-        const indicator = config.indicators[status.indicator] ? config.indicators[status.indicator] : 'orange';
+        const indicator = serviceConfig.indicators[status.indicator] ? serviceConfig.indicators[status.indicator] : 'orange';
 
         log(`
     ${link(chalk.bold(page.name), page.url)}
@@ -91,11 +91,16 @@ exports.purgeDetails = (result, log) => {
     return result.currents;
 }
 
+exports.addService = (name, status, rss, indicators) => {
+    return configHelper.addConfig('health', name, { status, rss, indicators })
+}
+
 exports.statusRequest = (services) => {
     const result = { currents: [], errors: [] }
 
+
     for (const name of services) {
-        const configService = externalServices[name];
+        const configService = config[name];
 
         if (!configService) {
             result.errors.push(name)
