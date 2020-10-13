@@ -1,0 +1,25 @@
+name: Build and Publish each push to master
+on: 
+    push: 
+        branches: 
+            - master
+jobs: 
+    publish: 
+        runs-on: ubuntu-latest
+        strategy: 
+            matrix: 
+                node-version: [12.x]
+        steps: 
+            - uses: actions/checkout@v1
+            - name: Use Node.Js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with: 
+                node-version: ${{ matrix.node-version }}
+            - name: Check NPM Installation 
+              run: npm --version #use | when is more than 1 line
+            - name: Configure NPM  
+              run: npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
+              env: 
+                NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+            - name: publish it    
+              run: npm run publish-version
