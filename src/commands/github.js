@@ -88,83 +88,87 @@ class GithubCommand extends Command {
         break;
       }
       case "list": {
-        if (!this.checkToken()) {
-          this.log(
-            `❌ A github token was not found, please configure a token using daily-cli github configure`
-          );
-          break;
-        }
-        const spinner = ora({
-          text: 'Loading your repositories',
-          spinner: 'earth',
-          color: 'gray'
-        }).start()
-        let repositories = await this.github.listRepositories();
-        spinner.stop();
-        cli.table(
-          repositories,
-          {
-            owner: {
-              extended: true,
-            },
-            name: {},
-            created_at: {
-              get: (key) => new Date(key.created_at).toLocaleDateString(),
-            },
-            language: {},
-            fullname: {
-              extended: true,
-            },
-            license: {
-              get: (key) => (key.license !== null ? key.license.key : "None"),
-              extended: true,
-            },
-            private: {
-              get: (key) => (key.private ? "yes" : "no"),
-              extended: true,
-            },
-            url: {
-              extended: true,
-            },
-            description: {
-              extended: true,
-            },
-            fork: {
-              get: (key) => (key.fork ? "yes" : "no"),
-              extended: true,
-            },
-            starts: {
-              extended: true,
-            },
-            forks: {
-              extended: true,
-            },
-            watchers: {
-              extended: true,
-            },
-            issues: {
-              extended: true,
-            },
-            updated_at: {
-              extended: true,
-            },
-            pushed_at: {
-              extended: true,
-            },
-            archived: {
-              get: (key) => (key.archived ? "yes" : "no"),
-              extended: true,
-            },
-            disabled: {
-              get: (key) => (key.disabled ? "yes" : "no"),
-              extended: true,
-            },
-          },
-          {
-            printLine: this.log,
-            ...flags, // parsed flags
+        try {
+          if (!this.checkToken()) {
+            this.log(
+              `❌ A github token was not found, please configure a token using daily-cli github configure`
+            );
+            break;
           }
-        );
+          const spinner = ora({
+            text: 'Loading your repositories',
+            spinner: 'earth',
+            color: 'gray'
+          }).start()
+          let repositories = await this.github.listRepositories();
+          spinner.stop();
+          cli.table(
+            repositories,
+            {
+              owner: {
+                extended: true,
+              },
+              name: {},
+              created_at: {
+                get: (key) => new Date(key.created_at).toLocaleDateString(),
+              },
+              language: {},
+              fullname: {
+                extended: true,
+              },
+              license: {
+                get: (key) => (key.license !== null ? key.license.key : "None"),
+                extended: true,
+              },
+              private: {
+                get: (key) => (key.private ? "yes" : "no"),
+                extended: true,
+              },
+              url: {
+                extended: true,
+              },
+              description: {
+                extended: true,
+              },
+              fork: {
+                get: (key) => (key.fork ? "yes" : "no"),
+                extended: true,
+              },
+              starts: {
+                extended: true,
+              },
+              forks: {
+                extended: true,
+              },
+              watchers: {
+                extended: true,
+              },
+              issues: {
+                extended: true,
+              },
+              updated_at: {
+                extended: true,
+              },
+              pushed_at: {
+                extended: true,
+              },
+              archived: {
+                get: (key) => (key.archived ? "yes" : "no"),
+                extended: true,
+              },
+              disabled: {
+                get: (key) => (key.disabled ? "yes" : "no"),
+                extended: true,
+              },
+            },
+            {
+              printLine: this.log,
+              ...flags, // parsed flags
+            }
+          );
+        } catch (error) {
+          this.log(`❌ There was an error getting your repositories`);
+        }
         break;
       }
       case "create": {
