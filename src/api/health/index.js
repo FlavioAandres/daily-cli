@@ -45,7 +45,7 @@ exports.render = async (responseData, configService, { flags, log }) => {
     ${chalk.keyword(indicator)(figures.bullet)} - ${chalk.grey(status.description)}
         `)
 
-        if (status.indicator) {
+        if (status.indicator !== 'none') {
 
             const spinner = ora({
                 text: 'loading incidents history...',
