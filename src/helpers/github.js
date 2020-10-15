@@ -1,18 +1,38 @@
 const { Octokit } = require("@octokit/rest");
 
-module.exports =  class Github {
+
+module.exports = class Github {
   constructor(token) {
     this.octokit = new Octokit({
       auth: token,
     });
   }
 
-  async listRepositories() {
-    const repositoriesList = await this.octokit.repos.listForAuthenticatedUser();
+  async listRepositories(options) {
+    const defOptions = {
+      per_page: options && options.per_page ? options.per_page : null,
+      type: options && options.type ? options.type : null
+    };
 
-    const repositories = repositoriesList.data.reduce(
+    const repositoriesList = []
+    let lastPage = 0;
+    let currentPage = 1
+
+    while (lastPage < currentPage) {
+      const response = await this.octokit.repos.listForAuthenticatedUser({ per_page: defOptions.per_page, type: defOptions.type, page: currentPage });
+
+      repositoriesList.push(...response.data)
+
+      lastPage = currentPage
+      currentPage = this.extractNextPage(response.headers)
+    }
+
+
+
+
+    const repositories = repositoriesList.reduce(
       (repositoriesArray, currentRepository) => {
-        
+
         const repository = {
           name: currentRepository.name,
           owner: currentRepository.owner.login,
@@ -58,16 +78,16 @@ module.exports =  class Github {
     return response;
   }
 
-  async deleteRepository(options){
-      let response = await this.octokit.repos.delete({
-          owner: options.owner,
-          repo: options.repo,
+  async deleteRepository(options) {
+    let response = await this.octokit.repos.delete({
+      owner: options.owner,
+      repo: options.repo,
 
-      })
-      return response
+    })
+    return response
   }
 
-  async createRelease(options){
+  async createRelease(options) {
     let response = await this.octokit.repos.createRelease({
       owner: options.owner,
       repo: options.repo,
@@ -75,7 +95,19 @@ module.exports =  class Github {
       draft: options.draft,
       prerelease: options.prerelease
     })
-    
+
     return response
+  }
+
+  extractNextPage(headers) {
+    if (headers && headers.link) {
+      const links = headers.link.split(',')[0].split(';')
+      if (links[1].includes('next')) {
+        const uri = links[0].replace('<', '').replace('>', '')
+        const link = new URL(uri)
+        return link.searchParams.get('page')
+      }
+      return -1
+    }
   }
 }

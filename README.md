@@ -182,7 +182,7 @@ DESCRIPTION
 
      Generate your token on this way 
   https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token
-     Required access: Repo
+     Required access: repo & delete_repo
 ```
 
 _See code: [src/commands/github.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/github.js)_

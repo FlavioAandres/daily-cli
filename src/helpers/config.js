@@ -23,17 +23,13 @@ module.exports = class Config {
                 this.configuration[command] = {}
             }
             
-            if (!this.configuration[command][key]) {
-
-                if(typeof value === 'object'){
-                    this.configuration[command][key] = {}
-                    Object.assign(this.configuration[command][key], value)
-                }else{
-                    this.configuration[command][key] = value;
-                }
+            if(typeof value === 'object'){
+                this.configuration[command][key] = {}
+                Object.assign(this.configuration[command][key], value)
+            }else{
+                this.configuration[command][key] = value;
+            }
                 
-            }            
-
             this.createFile()
 
             return true

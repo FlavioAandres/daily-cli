@@ -31,7 +31,7 @@ class GithubCommand extends Command {
   > Set up your github token first: daily-cli github configure
 
   Generate your token on this way https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token
-  Required access: Repo
+  Required access: repo & delete_repo
   `;
 
   repositoriesListPromp = (repositoriesFullNames) => new Select({
@@ -82,7 +82,7 @@ class GithubCommand extends Command {
             this.log(`❌ A github token was not provided, please type a github token`);
           }
         } catch (error) {
-          this.log(`❌ There was an error updating the config`);
+          this.log(`❌ There was an error updating the config, ${error.message}`);
         }
 
         break;
@@ -167,7 +167,7 @@ class GithubCommand extends Command {
             }
           );
         } catch (error) {
-          this.log(`❌ There was an error getting your repositories`);
+          this.log(`❌ There was an error getting your repositories, ${error.message}`);
         }
         break;
       }
@@ -202,7 +202,7 @@ class GithubCommand extends Command {
           }
         } catch (error) {
           this.log(
-            `❌ There was an error at try to create the repository ${flags.repository}`
+            `❌ There was an error at try to create the repository ${flags.repository}, ${error.message}`
           );
         }
         break;
@@ -220,7 +220,7 @@ class GithubCommand extends Command {
             spinner: 'earth',
             color: 'gray'
           }).start()
-          let repositories = await this.github.listRepositories();
+          let repositories = await this.github.listRepositories({ type: 'owner' });
           spinner.stop();
 
           const repositoriesAuthUser = repositories.filter(
@@ -248,7 +248,7 @@ class GithubCommand extends Command {
           }
         } catch (error) {
           this.log(
-            `❌ There was an error at try to delete the repository`
+            `❌ There was an error at try to delete the repository, ${error.message}`
           );
         }
         break;
@@ -300,7 +300,7 @@ class GithubCommand extends Command {
           this.log(logPrint);
         } catch (error) {
           this.log(
-            `❌ There was an error at try to create the release`
+            `❌ There was an error at try to create the release, ${error.message}`
           );
         }
         break;
