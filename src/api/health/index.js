@@ -5,6 +5,8 @@ const boxen = require('boxen')
 const link = require('terminal-link')
 const Parser = require('rss-parser')
 const { Config } = require('../../helpers')
+const ora = require('ora')
+
 
 const configHelper = new Config()
 const parserRSS = new Parser()
