@@ -4,6 +4,7 @@ const figures = require('figures')
 const boxen = require('boxen')
 const link = require('terminal-link')
 const Parser = require('rss-parser')
+const ora = require('ora')
 
 const { externalServices } = require('../../configs')
 
@@ -44,7 +45,7 @@ exports.render = async (responseData, configService, { flags, log }) => {
     ${chalk.keyword(indicator)(figures.bullet)} - ${chalk.grey(status.description)}
         `)
 
-        if (status.indicator !== 'none') {
+        if (status.indicator) {
 
             const spinner = ora({
                 text: 'loading incidents history...',
