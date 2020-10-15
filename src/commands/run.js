@@ -1,42 +1,45 @@
-const {Command, flags} = require('@oclif/command')
+const { Command, flags } = require('@oclif/command')
+const { Config } = require('../helpers')
 const fs = require('fs')
 const opn = require('opn')
 const path = require('path')
 class RunCommand extends Command {
-  DEFAULT_CONFIG_FILE_PATH ='../configs/default.json'
+  configHelper = new Config()
+  commandConfig = this.configHelper.getConfig('Run')
+  interfaces = Object.keys(this.commandConfig)
+
+
   static flags = {
-    task: flags.string({ char:'t',   description: 'task to execute', }),
+    task: flags.string({ char: 't', description: 'task to execute', }),
   }
-  
+
   async run() {
-    const defaultFile = fs.existsSync(path.join(__dirname, this.DEFAULT_CONFIG_FILE_PATH)) && require(this.DEFAULT_CONFIG_FILE_PATH)
-    if(!defaultFile) throw new Error('daily-cli is not configured yet, please run using: \n\tdaily-cli configure --path c:/path/file.json ')
+  
     RunCommand.args = [{
-      name: 'interface', 
-      options: defaultFile.interfaces,
+      name: 'interface',
+      options: this.interfaces,
       required: true
-    }] 
+    }]
 
-    const {flags, args} = this.parse(RunCommand)
-    const { 
+    const { flags, args } = this.parse(RunCommand)
+    const {
       task
-    }= flags
+    } = flags
 
-    if(task === 'urls'){
-      const interfaceFile = require(
-          '../configs/' + 
-          args.interface +
-          '.json'
-      )
-      return await this.procesUrlType(interfaceFile.urls)
+    if (this.commandConfig[args.interface]) {
+      if (task === 'urls') {
+        const interfaceFile = this.commandConfig[args.interface]
+        return await this.procesUrlType(interfaceFile.urls)
+      } else {
+        this.error('no task set for: ' + task)
+      }
     }
 
-    this.log('no task set for: ' + task)
-    return null; 
+    return null;
   }
 
-  procesUrlType = (urls = [])=>{
-    return Promise.all(urls.map(url=>opn(url)))
+  procesUrlType = (urls = []) => {
+    return Promise.all(urls.map(url => opn(url)))
   }
 
 }
