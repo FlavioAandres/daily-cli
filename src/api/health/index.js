@@ -4,6 +4,7 @@ const figures = require('figures')
 const boxen = require('boxen')
 const link = require('terminal-link')
 const Parser = require('rss-parser')
+const ora = require('ora')
 
 const { externalServices } = require('../../configs')
 
