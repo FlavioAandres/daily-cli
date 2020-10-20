@@ -1,7 +1,7 @@
 {
   "name": "daily-cli",
   "description": "cli to make the developer life easier",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Flavio A @FlavioAandres",
   "bin": {
     "daily-cli": "./bin/run"
@@ -15,6 +15,7 @@
     "boxen": "^4.2.0",
     "chalk": "^4.1.0",
     "cli-table3": "^0.6.0",
+    "cli-ux": "^5.5.0",
     "ejs": "^3.1.5",
     "enquirer": "^2.3.6",
     "execa": "^4.0.3",

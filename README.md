@@ -27,7 +27,7 @@ $ npm install -g daily-cli
 $ daily-cli COMMAND
 running command...
 $ daily-cli (-v|--version|version)
-daily-cli/0.0.6 darwin-x64 node-v12.16.2
+daily-cli/0.0.7 darwin-x64 node-v12.16.2
 $ daily-cli --help [COMMAND]
 USAGE
   $ daily-cli COMMAND
@@ -105,10 +105,12 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/api-generator.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/api-generator.js)_
+_See code: [src/commands/api-generator.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.7/src/commands/api-generator.js)_
 
 ## `daily-cli aws-accounts ACTION`
-![](https://s3.amazonaws.com/public.flavioaandres.com/aws-accounts_to.gif) 
+
+Describe the command here
+
 ```
 USAGE
   $ daily-cli aws-accounts ACTION
@@ -126,10 +128,7 @@ DESCRIPTION
   Allow administrating your AWS accounts
 ```
 
-## See all profiles loaded: 
-![](https://s3.us-east-1.amazonaws.com/public.flavioaandres.com/aws-accounts_show.gif)
-
-_See code: [src/commands/aws-accounts.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/aws-accounts.js)_
+_See code: [src/commands/aws-accounts.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.7/src/commands/aws-accounts.js)_
 
 ## `daily-cli configure`
 
@@ -150,9 +149,11 @@ DESCRIPTION
   Extra documentation goes here https://github.com/FlavioAandres/daily-cli
 ```
 
-_See code: [src/commands/configure.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.7/src/commands/configure.js)_
 
 ## `daily-cli github ACTION`
+
+...
 
 ```
 USAGE
@@ -184,11 +185,11 @@ DESCRIPTION
      Required access: repo & delete_repo
 ```
 
-_See code: [src/commands/github.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/github.js)_
+_See code: [src/commands/github.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.7/src/commands/github.js)_
 
 ## `daily-cli health`
 
-![](https://s3.amazonaws.com/public.flavioaandres.com/health_1.gif)
+Describe the command here
 
 ```
 USAGE
@@ -216,9 +217,11 @@ EXAMPLES
   $ health -s github trello
 ```
 
-_See code: [src/commands/health.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/health.js)_
+_See code: [src/commands/health.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.7/src/commands/health.js)_
 
 ## `daily-cli hello`
+
+Describe the command here
 
 ```
 USAGE
@@ -235,7 +238,7 @@ EXAMPLE
   $ daily-cli hello --name pecue
 ```
 
-_See code: [src/commands/hello.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/hello.js)_
+_See code: [src/commands/hello.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.7/src/commands/hello.js)_
 
 ## `daily-cli help [COMMAND]`
 
@@ -270,5 +273,5 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/run.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.6/src/commands/run.js)_
+_See code: [src/commands/run.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.7/src/commands/run.js)_
 <!-- commandsstop -->
