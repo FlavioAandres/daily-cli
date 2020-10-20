@@ -188,6 +188,7 @@ DESCRIPTION
 
 _See code: [src/commands/github.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.7/src/commands/github.js)_
 
+
 ## `daily-cli go-to ACTION`
 
 ...
@@ -207,6 +208,7 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/go-to.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.7/src/commands/go-to.js)_
+
 
 ## `daily-cli health`
 
