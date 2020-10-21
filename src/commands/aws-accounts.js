@@ -1,4 +1,5 @@
-const { Command, flags } = require("@oclif/command");
+const { flags } = require("@oclif/command");
+const Command = require('../helpers/baseCommand')
 const AWSCredentials = require("manage-aws-credentials");
 const { Input } = require('enquirer')
 const Table = require('cli-table3');
@@ -14,29 +15,29 @@ class AWSAccounts extends Command {
     },
   ];
 
-  InputName = (action)=>new Input({
+  InputName = (action) => new Input({
     message: "What name you wants to " + action,
     initial: 'random-user'
   });
-  InputSecretKey = ()=> new Input({
+  InputSecretKey = () => new Input({
     message: "=> Secret Key",
     initial: 'uuiid/uuid@uuid:random',
     required: true,
   });
-  InputAccsessKey = ()=> new Input({
+  InputAccsessKey = () => new Input({
     message: "=> Access Key",
     initial: 'AKIA123456',
     required: true,
   });
 
-  handleAddAction = async ({name, key, secret})=>{
-    if(!name){
+  handleAddAction = async ({ name, key, secret }) => {
+    if (!name) {
       name = await this.InputName('add').run()
     }
-    if(!key){
+    if (!key) {
       key = await this.InputAccsessKey().run()
     }
-    if(!secret){
+    if (!secret) {
       secret = await this.InputSecretKey().run()
     }
 
@@ -52,7 +53,7 @@ class AWSAccounts extends Command {
     );
   }
 
-  handleRemoveAction = async({name}) =>{
+  handleRemoveAction = async ({ name }) => {
     if (!name) {
       name = await this.InputName('remove').run()
     }
@@ -65,27 +66,27 @@ class AWSAccounts extends Command {
     );
   }
 
-  handleShowAction = async () =>{
-    const users_aws = AWSCredentials.serialize_credentials("object") || []; 
-    
+  handleShowAction = async () => {
+    const users_aws = AWSCredentials.serialize_credentials("object") || [];
+
     const AccountsTable = new Table({
       head: ["Account Name", "Access Key"]
     });
-    const parsedData = users_aws.map(user=>[user.name.replace(/(\[)|(\])/g, ''), user.access_key])
+    const parsedData = users_aws.map(user => [user.name.replace(/(\[)|(\])/g, ''), user.access_key])
     AccountsTable.push(...parsedData);
 
     this.log(AccountsTable.toString())
-  }  
+  }
 
-  handleToAction = async ({name})=>{
+  handleToAction = async ({ name }) => {
     if (!name) {
       name = await this.InputName('move').run()
     }
     const credentials = AWSCredentials.serialize_credentials("object");
-    
+
     //Look for the new default profile
     const credentialFilter = credentials.filter(
-      (_credential) =>{
+      (_credential) => {
         return _credential.name.replace(/(\[)|(\])/g, '') === name
       }
     );
@@ -105,23 +106,23 @@ class AWSAccounts extends Command {
           ? "Your default account was successfully switched"
           : "There were an issue switching your default account"
       );
-    }else{
+    } else {
       throw new Error(
         `Looks like that there is not a profile with the given name, use the command aws-accounts show to get the list of current profiles`
       );
     }
-    
+
   }
 
   async run() {
     const { flags, args } = this.parse(AWSAccounts);
     const {
-      name, 
+      name,
     } = flags
 
     switch (args.action) {
       case "add": {
-        return await this.handleAddAction(flags)        
+        return await this.handleAddAction(flags)
       }
       case "remove": {
         return await this.handleRemoveAction(flags)

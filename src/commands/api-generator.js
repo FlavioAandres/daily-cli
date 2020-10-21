@@ -1,4 +1,5 @@
-const {Command, flags} = require('@oclif/command')
+const { flags } = require('@oclif/command')
+const Command = require('../helpers/baseCommand')
 const { Generators } = require('../api')
 const path = require('path')
 const { MultiSelect, Input } = require('enquirer')
@@ -37,7 +38,7 @@ class ApiGeneratorCommand extends Command {
   }
 
   async run() {
-    const {flags} = this.parse(ApiGeneratorCommand)
+    const { flags } = this.parse(ApiGeneratorCommand)
     const { name, options } = await this.inputCase(flags)
     const absolutePath = path.join(process.cwd(), name);
     this.log(`creating API Template at ${absolutePath}`)
@@ -56,11 +57,11 @@ Extra documentation goes here
 `
 
 ApiGeneratorCommand.flags = {
-  name: flags.string({char: 'n', description: 'API Name'}),
-  knex: flags.boolean({char: 'k', description: 'Install knex dependency', default: false}),
-  mongo: flags.boolean({char: 'm', description: 'Install mongodb dependency', default: false}),
+  name: flags.string({ char: 'n', description: 'API Name' }),
+  knex: flags.boolean({ char: 'k', description: 'Install knex dependency', default: false }),
+  mongo: flags.boolean({ char: 'm', description: 'Install mongodb dependency', default: false }),
   docker: flags.boolean({ char: 'd', description: 'Creates a Docker File in the root project directory', default: false }),
-  metrics: flags.boolean({description: 'Install @condorlabs/metrics middleware', default: false}),
+  metrics: flags.boolean({ description: 'Install @condorlabs/metrics middleware', default: false }),
 }
 
 module.exports = ApiGeneratorCommand

@@ -1,4 +1,5 @@
-const {Command, flags} = require('@oclif/command')
+const { flags } = require('@oclif/command')
+const Command = require('../helpers/baseCommand')
 
 class HelloCommand extends Command {
   async run() {
@@ -14,7 +15,7 @@ Extra documentation goes here
 `
 
 HelloCommand.flags = {
-  name: flags.string({char: 'n', description: 'name to print'}),
+  name: flags.string({ char: 'n', description: 'name to print' }),
 }
 
 HelloCommand.examples = [

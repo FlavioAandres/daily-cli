@@ -1,4 +1,5 @@
-const { Command, flags } = require('@oclif/command')
+const { flags } = require('@oclif/command')
+const  Command = require('../helpers/baseCommand')
 const { Health } = require('../api')
 const { Input } = require('enquirer')
 const chalk = require('chalk')
@@ -21,6 +22,7 @@ class HealthCommand extends Command {
         name: "data",
         message: `What is the ${action}?`
     })
+
 
     async run() {
         const { flags, args } = this.parse(HealthCommand)

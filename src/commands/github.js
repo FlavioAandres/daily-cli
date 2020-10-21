@@ -1,15 +1,12 @@
-const { Github, Config } = require("../helpers");
-const { Command, flags } = require("@oclif/command");
+const { Github } = require("../helpers");
+const  Command = require('../helpers/baseCommand')
+const { flags } = require("@oclif/command");
 const { cli } = require("cli-ux");
 const { Select, Confirm, Input } = require('enquirer');
-const ora = require('ora')
-
-
+const ora = require('ora');
 
 class GithubCommand extends Command {
-  configHelper = new Config()
-  commandConfig = this.configHelper.getConfig('Github')
-
+ 
   static args = [
     {
       name: "action",
@@ -62,7 +59,7 @@ class GithubCommand extends Command {
   })
 
   async init() {
-    this.github = new Github(this.commandConfig.github_token);
+    this.github = new Github(this.configuration.github_token);
   }
 
   async run() {
@@ -75,7 +72,7 @@ class GithubCommand extends Command {
           const github_token = await this.githubTokenPrompt().run()
 
           if (github_token) {
-            this.configHelper.addConfig('Github', 'github_token', github_token)
+            this.configHelper.addConfig(this.id, 'github_token', github_token)
             this.log(`✔ github token loaded`);
 
           } else {
@@ -313,7 +310,7 @@ class GithubCommand extends Command {
 
 
   checkToken() {
-    return (!this.commandConfig.github_token ? false : true)
+    return (!this.configuration.github_token ? false : true)
   }
 
 }
