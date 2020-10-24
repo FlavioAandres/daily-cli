@@ -1,7 +1,7 @@
 {
   "name": "daily-cli",
   "description": "cli to make the developer life easier",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "author": "Flavio A @FlavioAandres",
   "bin": {
     "daily-cli": "./bin/run"
@@ -62,6 +62,7 @@
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
     "version": "oclif-dev readme && git add README.md",
-    "publish-version": "npm install && npm publish || true"
+    "publish-version": "npm install && npm publish || true",
+    "postinstall": "node ./src/hooks/postinstall.js"
   }
 }
