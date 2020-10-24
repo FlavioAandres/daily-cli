@@ -1,7 +1,7 @@
 const { flags } = require("@oclif/command");
 const Command = require('../helpers/baseCommand')
 const AWSCredentials = require("manage-aws-credentials");
-const { Input } = require('enquirer')
+const { Input, Select } = require('enquirer')
 const Table = require('cli-table3');
 
 class AWSAccounts extends Command {
@@ -30,8 +30,15 @@ class AWSAccounts extends Command {
     required: true,
   });
 
-  handleAddAction = async ({ name, key, secret }) => {
-    if (!name) {
+  SelectName = (action, names) => new Select({
+    name: "Repository",
+    message: `What name you wants to ${action}?`,
+    type: "list",
+    choices: [...names],
+  })
+
+  handleAddAction = async ({name, key, secret})=>{
+    if(!name){
       name = await this.InputName('add').run()
     }
     if (!key) {
@@ -55,7 +62,9 @@ class AWSAccounts extends Command {
 
   handleRemoveAction = async ({ name }) => {
     if (!name) {
-      name = await this.InputName('remove').run()
+      const users_aws = AWSCredentials.serialize_credentials("object") || []; 
+      const names = users_aws.filter(user => user.name.replace(/(\[)|(\])/g, '') !== 'default' ).map(user=>user.name.replace(/(\[)|(\])/g, ''))
+      name = await this.SelectName('move',names).run()
     }
     AWSCredentials.delete_profile(name);
     const fileSaved = AWSCredentials.save_file();
@@ -80,7 +89,9 @@ class AWSAccounts extends Command {
 
   handleToAction = async ({ name }) => {
     if (!name) {
-      name = await this.InputName('move').run()
+      const users_aws = AWSCredentials.serialize_credentials("object") || []; 
+      const names = users_aws.filter(user => user.name.replace(/(\[)|(\])/g, '') !== 'default' ).map(user=>user.name.replace(/(\[)|(\])/g, ''))
+      name = await this.SelectName('move',names).run()
     }
     const credentials = AWSCredentials.serialize_credentials("object");
 
