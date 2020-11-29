@@ -80,6 +80,7 @@ $ daily-cli run elk --task urls
 * [`daily-cli aws-accounts ACTION`](#daily-cli-aws-accounts-action)
 * [`daily-cli configure`](#daily-cli-configure)
 * [`daily-cli github ACTION`](#daily-cli-github-action)
+* [`daily-cli go-to ACTION`](#daily-cli-go-to-action)
 * [`daily-cli health`](#daily-cli-health)
 * [`daily-cli hello`](#daily-cli-hello)
 * [`daily-cli help [COMMAND]`](#daily-cli-help-command)
@@ -186,6 +187,28 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/github.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.10/src/commands/github.js)_
+
+
+## `daily-cli go-to ACTION`
+
+...
+
+```
+USAGE
+  $ daily-cli go-to ACTION
+
+ARGUMENTS
+  ACTION  (add|list) action that will do the command
+
+DESCRIPTION
+  ...
+     Path Automatization!!.
+
+     > Go through multiple paths with the CLI
+```
+
+_See code: [src/commands/go-to.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.7/src/commands/go-to.js)_
+
 
 ## `daily-cli health`
 
