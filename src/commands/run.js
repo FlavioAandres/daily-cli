@@ -1,13 +1,8 @@
-const { Command, flags } = require('@oclif/command')
-const { Config } = require('../helpers')
-const fs = require('fs')
+const { flags } = require('@oclif/command')
+const Command = require('../helpers/baseCommand')
 const opn = require('opn')
-const path = require('path')
 class RunCommand extends Command {
-  configHelper = new Config()
-  commandConfig = this.configHelper.getConfig('Run')
-  interfaces = Object.keys(this.commandConfig)
-
+  interfaces = Object.keys(this.configuration)
 
   static flags = {
     task: flags.string({ char: 't', description: 'task to execute', }),
@@ -26,9 +21,9 @@ class RunCommand extends Command {
       task
     } = flags
 
-    if (this.commandConfig[args.interface]) {
+    if (this.configuration[args.interface]) {
       if (task === 'urls') {
-        const interfaceFile = this.commandConfig[args.interface]
+        const interfaceFile = this.configuration[args.interface]
         return await this.procesUrlType(interfaceFile.urls)
       } else {
         this.error('no task set for: ' + task)

@@ -1,13 +1,11 @@
-const { Command, flags } = require('@oclif/command')
-const { Config } = require('../helpers')
+const { flags } = require('@oclif/command')
+const Command = require('../helpers/baseCommand')
 const fs = require('fs')
 const path = require('path')
 class ConfigureCommand extends Command {
-  configHelper = new Config()
-  commandConfig = this.configHelper.getConfig('Configure')
 
   async run() {
-    const { flags, args } = this.parse(ConfigureCommand)
+    const { flags } = this.parse(ConfigureCommand)
     const {
       path
     } = flags
@@ -25,7 +23,7 @@ class ConfigureCommand extends Command {
         ...file[key],
         updatedAt: +new Date(),
       }
-     this.configHelper.addConfig('Run',key,keySettings)
+     this.configHelper.addConfig('run',key,keySettings)
     }
     this.log('Keys created successfully')
   }

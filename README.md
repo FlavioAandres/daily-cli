@@ -106,7 +106,9 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
+
 _See code: [src/commands/api-generator.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.10/src/commands/api-generator.js)_
+
 
 ## `daily-cli aws-accounts ACTION`
 
@@ -129,7 +131,9 @@ DESCRIPTION
   Allow administrating your AWS accounts
 ```
 
+
 _See code: [src/commands/aws-accounts.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.10/src/commands/aws-accounts.js)_
+
 
 ## `daily-cli configure`
 
@@ -150,7 +154,9 @@ DESCRIPTION
   Extra documentation goes here https://github.com/FlavioAandres/daily-cli
 ```
 
+
 _See code: [src/commands/configure.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.10/src/commands/configure.js)_
+
 
 ## `daily-cli github ACTION`
 
@@ -242,6 +248,7 @@ EXAMPLES
 
 _See code: [src/commands/health.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.10/src/commands/health.js)_
 
+
 ## `daily-cli hello`
 
 Describe the command here
@@ -260,6 +267,7 @@ DESCRIPTION
 EXAMPLE
   $ daily-cli hello --name pecue
 ```
+
 
 _See code: [src/commands/hello.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.10/src/commands/hello.js)_
 
@@ -297,4 +305,5 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/run.js](https://github.com/FlavioAandres/daily-cli/blob/v0.0.10/src/commands/run.js)_
+
 <!-- commandsstop -->
