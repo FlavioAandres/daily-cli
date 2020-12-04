@@ -1,11 +1,23 @@
 {
   "name": "daily-cli",
   "description": "cli to make the developer life easier",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "author": "Flavio A @FlavioAandres",
   "bin": {
     "daily-cli": "./bin/run"
   },
+  "contributors": [
+    {
+      "name": "Andres Morelos",
+      "url": "https://andresmorelos.dev",
+      "email": "andresmorelos123@gmail.com"
+    },
+    {
+      "name": "Carlos Lopez",
+      "url": "https://clouby.vercel.app/",
+      "email": "celb25@gmail.com"
+    }
+  ],
   "bugs": "https://github.com/@FlavioAandres/daily-cli/issues",
   "dependencies": {
     "@oclif/command": "^1.8.0",
