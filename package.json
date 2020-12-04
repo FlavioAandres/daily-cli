@@ -1,7 +1,7 @@
 {
   "name": "daily-cli",
   "description": "cli to make the developer life easier",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": "Flavio A @FlavioAandres",
   "bin": {
     "daily-cli": "./bin/run"

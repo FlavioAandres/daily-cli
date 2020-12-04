@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const os = require('os')
-const cliPackage = require('../../package.json')
-const defaultConfig = require('../configs/default.json')
+const cliPackage = require(path.join(__dirname, '../../package.json'))
+const defaultConfig = require(path.join(__dirname, '../configs/default.json'))
 
 module.exports = class Config {
     DEFAULT_CONFIG_FILE_DIR = path.join(os.homedir(), '.config', cliPackage.name)
