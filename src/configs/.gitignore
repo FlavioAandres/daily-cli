@@ -1,1 +1,5 @@
-*.json
+aws.json
+elk.json
+github.json
+metrics.json
+start-day.json
